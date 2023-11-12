@@ -1,0 +1,24 @@
+{
+  "name": "garage_auto",
+  "version": "1.0.0",
+  "description": "API Rest pour la gestion de l'application web du garage auto",
+  "type":"module",
+  "main": "server.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isiis0406/garage_auto.git"
+  },
+  "author": "BALDE Issa Bobo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isiis0406/garage_auto/issues"
+  },
+  "homepage": "https://github.com/isiis0406/garage_auto#readme",
+  "dependencies": {
+    "mysql2": "^3.6.3"
+  }
+}
