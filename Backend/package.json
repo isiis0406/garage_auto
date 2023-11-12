@@ -2,11 +2,10 @@
   "name": "garage_auto",
   "version": "1.0.0",
   "description": "API Rest pour la gestion de l'application web du garage auto",
-  "type":"module",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "devStart": "nodemon server.js"
-    
   },
   "repository": {
     "type": "git",
@@ -19,6 +18,12 @@
   },
   "homepage": "https://github.com/isiis0406/garage_auto#readme",
   "dependencies": {
-    "mysql2": "^3.6.3"
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.6.3",
+    "nodemailer": "^6.9.7"
   }
 }
