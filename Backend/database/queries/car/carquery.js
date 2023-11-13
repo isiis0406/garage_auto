@@ -21,11 +21,16 @@ export const getAllCars = async () => {
 
 // Create a Car
 export const createCar = async (car) => {
+    // Créer la voiture
     const [rows] = await pool.query(`
     INSERT INTO cars (brand, model, release_year, price, description, image_path, kilometers)
     VALUES (?,?,?,?,?,?,?)`,
         [car.brand, car.model, car.release_year, car.price, car.description, car.image_path, car.kilometers]);
-    return rows;
+
+    const id = rows.insertId;
+    // Récupérer la voiture créée
+    const carCreated = await getCarById(id);
+    return carCreated;
 }
 // Update a Car
 export const updateCar = async (id, car) => {
@@ -34,7 +39,8 @@ export const updateCar = async (id, car) => {
     SET brand=?, model=?, release_year=?, price=?, description=?, image_path=?, kilometers=?
     WHERE id=?`,
         [car.brand, car.model, car.release_year, car.price, car.description, car.image_path, car.kilometers, id]);
-    return rows;
+    const updatedCar = await getCarById(id);
+    return updatedCar;
 }
 // Delete a Car
 export const deleteCar = async (id) => {
