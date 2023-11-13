@@ -1,12 +1,27 @@
-import express from 'express';
+import express, {urlencoded} from 'express';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import cors from "cors";
+import cookieParser from "cookie-parser";
+
+import { userRouter } from './routes/user/userRoute.js';
+import { authRouter } from './routes/auth/authRoute.js';
 
 dotenv.config();
 
 const app = express();
 
-app.use(express.json());
+app.use(cors({
+  origin: ["http://localhost:3000", "https://inventoryapp.vercel.app"],
+  credentials: true
+}));
 
+app.use(express.json());
+app.use(cookieParser());
+app.use(urlencoded({extended: true}));
+
+app.use('/api/users', authRouter);
+app.use('/api/users', userRouter);
 
 
 app.get('/', (req, res) => {

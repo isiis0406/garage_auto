@@ -19,7 +19,7 @@ CREATE TABLE tokens (
   id INT PRIMARY KEY auto_increment,
   userId INT NOT NULL,
   token VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at DATETIME NOT NULL,
   expiresAt DATETIME NOT NULL,
   FOREIGN KEY (userId) REFERENCES users(id) 
 );
