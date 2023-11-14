@@ -77,8 +77,10 @@ CREATE TABLE testimonials(
 CREATE TABLE messages(
    id INT auto_increment,
    name VARCHAR(50),
-   email_ VARCHAR(50),
-   message VARCHAR(250),
+   phone VARCHAR(50),
+   email VARCHAR(50),
+   message TEXT,
+   archived BOOLEAN DEFAULT FALSE,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY(id)

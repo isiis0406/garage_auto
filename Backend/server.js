@@ -10,6 +10,7 @@ import { carRouter } from './routes/car/carRoute.js';
 import { serviceRouter } from './routes/service/serviceRoute.js';
 import { openHoursRouter } from './routes/open_hours/openHoursRoute.js';
 import { testimonialRouter } from './routes/testimonial/testimonialRouter.js';
+import { messageRouter } from './routes/message/messageRouter.js';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use('/api/cars', carRouter);
 app.use('/api/services', serviceRouter);
 app.use('/api/open-hours', openHoursRouter);
 app.use('/api/testimonials', testimonialRouter);
+app.use('/api/messages', messageRouter);
 
 
 app.get('/', (req, res) => {
