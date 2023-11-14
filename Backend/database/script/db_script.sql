@@ -64,13 +64,12 @@ CREATE TABLE cars(
 /* Testimonials */
 CREATE TABLE testimonials(
    id INT AUTO_INCREMENT,
-   user_id INT NOT NULL,
+   email VARCHAR(55) NOT NULL,
    content VARCHAR(255), 
    rating INT,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY(id),
-   FOREIGN KEY(user_id) REFERENCES users(id),
    CHECK (rating >= 1 AND rating <= 5) -- Ajout de la contrainte CHECK pour la notation
 );
 

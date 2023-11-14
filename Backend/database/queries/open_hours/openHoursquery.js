@@ -4,7 +4,7 @@ import { pool} from '../../connexion.js';
 // Get all open hours
 export const getAllOpenHours = async () => {
     try {
-        const [rows] = await pool.query('SELECT * FROM open_hours');
+        const [rows] = await pool.query('SELECT * FROM opening_hours');
         return rows;
     } catch (error) {
         console.error(error);
@@ -14,7 +14,7 @@ export const getAllOpenHours = async () => {
 // Get one open hours
 export const getOpenHours = async (id) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM open_hours WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM opening_hours WHERE id = ?', [id]);
         return rows[0];
     } catch (error) {
         console.error(error);
@@ -24,7 +24,7 @@ export const getOpenHours = async (id) => {
 export const createOpenHours = async (openHours) => {
     try {
         const [rows] = await pool.query(`
-        INSERT INTO open_hours (day, open_time, close_time)
+        INSERT INTO opening_hours (day, open_time, close_time)
         VALUES (?, ?, ?)
         `, [openHours.day, openHours.open_time, openHours.close_time]);
         ;
@@ -39,7 +39,7 @@ export const createOpenHours = async (openHours) => {
 export const updateOpenHours = async (id, openHours) => {
     try {
         const [rows] = await pool.query(`
-        UPDATE open_hours
+        UPDATE opening_hours
         SET day = ?, open_time = ?, close_time = ?
         WHERE id = ?
         `, [openHours.day, openHours.open_time, openHours.close_time, id]);
@@ -53,7 +53,7 @@ export const updateOpenHours = async (id, openHours) => {
 // Delete a open hours
 export const deleteOpenHours = async (id) => {
     try {
-        const [rows] = await pool.query('DELETE FROM open_hours WHERE id = ?', [id]);
+        const [rows] = await pool.query('DELETE FROM opening_hours WHERE id = ?', [id]);
         return rows;
     } catch (error) {
         console.error(error);
