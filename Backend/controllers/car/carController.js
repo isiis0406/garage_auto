@@ -115,17 +115,6 @@ export const updateOneCar = asyncHandler(async (req, res) => {
     let filePath = carToUpdate.image_path;
     // Traiter l'image si une nouvelle est fournie
     if (req.file) {
-        // Supprimer l'image existante depuis Cloudinary
-        const publicId = filePath.split('/').pop().split('.')[0];
-        try {
-           await cloudinary.uploader.destroy(publicId);
-           console.log('Image supprimée depuis Cloudinary');
-        } catch (error) {
-            console.error('Erreur lors de la suppression de l\'image depuis Cloudinary :', error);
-
-        }
-        
-
         // uploader la nouvelle image sur Cloudinary
         const uploadedFile = await cloudinary.uploader.upload(req.file.path, {
             folder: "garage_auto",
@@ -175,12 +164,7 @@ export const deleteOneCar = asyncHandler(async (req, res) => {
     if (!carToDelete) {
         return res.status(404).json({ message: "Voiture non trouvée" });
     }
-    // Supprimer l'image depuis Cloudinary
-    if(carToDelete.image_path){
-        const publicId = carToDelete.image_path.split('/').pop().split('.')[0];
-        await cloudinary.uploader.destroy(publicId).then(result => console.log(result));
-       
-    }
+
     // Supprimer la voiture
     try {
         const deletedCar = await deleteCar(id);
