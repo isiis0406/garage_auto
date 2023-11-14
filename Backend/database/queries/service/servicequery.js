@@ -2,9 +2,9 @@ import { pool } from '../../connexion.js'
 
 
 // Get all services
-export const getAllServices = async () => {
+export const getServices = async () => {
     try {
-        const [rows] = await pool.query('SELECT * FROM service');
+        const [rows] = await pool.query('SELECT * FROM services');
         return rows;
     } catch (error) {
         throw error;
@@ -14,7 +14,7 @@ export const getAllServices = async () => {
 // Get one service
 export const getService = async (id) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM service WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM services WHERE id = ?', [id]);
         return rows[0];
     } catch (error) {
         throw error;
@@ -24,11 +24,11 @@ export const getService = async (id) => {
 export const createService = async (service) => {
     try {
         const [rows] = await pool.query(`
-        INSERT INTO service (title, description, image_path)
+        INSERT INTO services (title, description, image_path)
         VALUES (?, ?, ?)
         `, [service.title, service.description, service.image_path]);
         ;
-        const createdService = await getOneService(rows.insertId);
+        const createdService = await getService(rows.insertId);
         return createdService;
     } catch (error) {
         throw error;
@@ -39,12 +39,22 @@ export const createService = async (service) => {
 export const updateService = async (id, service) => {
     try {
         const [rows] = await pool.query(`
-        UPDATE service
+        UPDATE services
         SET title = ?, description = ?, image_path = ?
         WHERE id = ?
         `, [service.title, service.description, service.image_path, id]);
         const updatedService = await getService(id);
         return updatedService;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Delete a service
+export const deleteService = async (id) => {
+    try {
+        const [rows] = await pool.query('DELETE FROM services WHERE id = ?', [id]);
+        return rows;
     } catch (error) {
         throw error;
     }

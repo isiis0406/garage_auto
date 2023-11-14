@@ -28,8 +28,8 @@ CREATE TABLE tokens (
 CREATE TABLE services(
    id INT auto_increment,
    title VARCHAR(50),
-   description VARCHAR(50),
-   image_path VARCHAR(50),
+   description VARCHAR(250),
+   image_path TEXT,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY(id)

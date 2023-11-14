@@ -36,7 +36,7 @@ export const createOneCar = asyncHandler(async (req, res) => {
             uploadedFile = await cloudinary.uploader.upload(
                 req.file.path, // Le fichier à uploader
                 {
-                    folder: "garage_auto", // Le dossier dans lequel stocker le fichier
+                    folder: "garage_auto/cars", // Le dossier dans lequel stocker le fichier
                     resource_type: "image" // le type de ressource à uploader
                 })
 
@@ -78,7 +78,7 @@ export const createOneCar = asyncHandler(async (req, res) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 })
 
@@ -117,7 +117,7 @@ export const updateOneCar = asyncHandler(async (req, res) => {
     if (req.file) {
         // uploader la nouvelle image sur Cloudinary
         const uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-            folder: "garage_auto",
+            folder: "garage_auto/cars",
             resource_type: "image"
         });
 
