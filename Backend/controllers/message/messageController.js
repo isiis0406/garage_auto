@@ -29,7 +29,6 @@ export const getOneMessage = asyncHandler(async (req, res) => {
     const id = req.params.id;
     try {
         const message = await getMessage(id);
-        console.log(message);
         if (message) {
             return res.status(200).json(message);
         }else{
