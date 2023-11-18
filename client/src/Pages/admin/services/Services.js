@@ -8,8 +8,9 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedInd } from '../../../redux/features/auth/authSlice.js';
 import useRedirectLoggedOutUser from '../../../customHook/useRedirectLoggedOutUser.js';
-import { getServices, selectIsLoading, selectServices } from '../../../redux/features/services/serviceSlice.js';
+import { deleteService, getServices, selectIsLoading, selectServices } from '../../../redux/features/services/serviceSlice.js';
 import Loader from '../../../components/loader/loader.js';
+import { confirmAlert } from 'react-confirm-alert';
 import { useNavigate } from 'react-router-dom';
 const Services = () => {
     useRedirectLoggedOutUser('/login');
@@ -18,16 +19,21 @@ const Services = () => {
     const isLoggedIn = useSelector(selectIsLoggedInd);
     // Récupérer les états globaux depuis le redux
     const { services, isLoading, isError, message } = useSelector((state) => state.services);
-
+    
     const handleView = async (id) => {
-        await navigate(`/admin/services/${id}`)
+        await navigate(`/admin/service-detail/${id}`)
     };
     const handleEdit = async (id) => {
         await navigate(`/admin/edit-service/${id}`)
     };
-    const handleDelete = async (id) => {   
-       // await dispatch(deleteService(id));
-        //await dispatch(getServices());
+    const handleDeleteService = async (id) => {   
+        
+       const result = await dispatch(deleteService(id));
+        await dispatch(getServices());
+        if(!result.error){
+            await dispatch(getServices());
+            navigate('/admin/services');
+        }
     }
 
     useEffect(() => {
@@ -40,8 +46,8 @@ const Services = () => {
         getServices();
     }, [isError, message, dispatch, isLoggedIn]);
 
+
     const columns = [
-        { header: 'ID', accessor: 'id' },
         { header: 'Titre', accessor: 'title' },
         { header: 'Description', accessor: 'description' },
         { header: 'Photo', accessor: 'image_path' },
@@ -59,7 +65,7 @@ const Services = () => {
                     data={services} 
                     handleView={handleView}
                     handleEdit={handleEdit}
-                    handleDelete={handleDelete}
+                    handleDelete={handleDeleteService}
                     />
                 </AdminLayout>}
         </>

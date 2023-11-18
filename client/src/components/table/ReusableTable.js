@@ -1,7 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
+import DOMPurify from 'dompurify';
 const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete }) => {
+
+    // Sécuriser la description
+    const createMarkup = (htmlContent) => {
+        return {
+            __html: DOMPurify.sanitize(htmlContent)
+        };
+    };
     return (
         <Table>
             <thead>
@@ -19,10 +27,13 @@ const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete }) 
                             const cellValue = row[column.accessor];
                             return (
                                 <td key={columnIndex}>
-                                    {column.accessor === 'image_path' ?
-                                        <img className="image" src={cellValue} alt={row.title} style={{ width: '100px' }} /> :
+                                    {column.accessor === 'image_path' ? (
+                                        <img className="image" src={cellValue} alt={row.title} style={{ width: '100px' }} />
+                                    ) : column.accessor === 'description' ? (
+                                        <div dangerouslySetInnerHTML={createMarkup(cellValue)} />
+                                    ) : (
                                         cellValue
-                                    }
+                                    )}
                                 </td>
                             );
                         })}
