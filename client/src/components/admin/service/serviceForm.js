@@ -3,36 +3,23 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from 'styled-components';
 
-const ServiceForm = ({ service, setService,handleSaveService, labelButton }) => {
-    const [imagePreview, setImagePreview] = useState('');
+const ServiceForm = (
+    {
+        service,
+        setService,
+        imagePreview,
+        handleInputChange,
+        handleImageChange,
+        handleSaveService,
+        labelButton
+    }) => {
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setService({ ...service, [name]: value });
-    };
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setService({ ...service, image: file });
-
-        // Création de l'aperçu de l'image
-        if (file) {
-            setImagePreview(URL.createObjectURL(file));
-        } else {
-            setImagePreview('');
-        }
-    };
-
-    const handleSave = (e) => {
-        e.preventDefault();
-        handleSaveService(service);
-    };
 
     return (
         <Wrapper>
             <AddService>
                 <Card>
-                    <form onSubmit={handleSave}>
+                    <form onSubmit={handleSaveService}>
 
 
                         <Group>
@@ -40,17 +27,20 @@ const ServiceForm = ({ service, setService,handleSaveService, labelButton }) => 
                             <StyledInput
                                 type="text"
                                 name="title"
-                                value={service.title}
+                                value={service?.title}
                                 onChange={handleInputChange}
                             />
                         </Group>
                         <Group>
                             <Label>Image :</Label>
+                            <code className="format">
+                                Formats supportés : jpg, jpeg, png
+                            </code>
                             <StyledInput
                                 type="file"
                                 name="image"
                                 accept="image/*"
-                                onChange={handleImageChange}
+                                onChange={(e) => {handleImageChange(e)}}
                             />
                             {imagePreview && (
                                 <ImagePreview>
@@ -63,7 +53,7 @@ const ServiceForm = ({ service, setService,handleSaveService, labelButton }) => 
                             <Label>Description :</Label>
                             <ReactQuill
                                 theme="snow"
-                                value={service.description}
+                                value={service?.description}
                                 onChange={value => setService({ ...service, description: value })}
                                 modules={ServiceForm.modules}
                                 formats={ServiceForm.formats}

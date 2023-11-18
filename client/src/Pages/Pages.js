@@ -8,6 +8,7 @@ import ResetPassword from './auth/ResetPassword';
 import Dashboard from '../Pages/Dashboard';
 import Services from './admin/services/Services';
 import AddServices from './admin/services/AddServices';
+import EditServices from './admin/services/EditServices';
 // import AddUser from './user/AddUser';
 // import Users from './user/User';
 // import EditUser from './user/EditUser';
@@ -30,6 +31,7 @@ function Pages() {
             { /* Admin Services */}
             <Route path='/admin/services' element={<Services/>}/>
             <Route path='/admin/add-service' element={<AddServices/>}/>
+            <Route path='/admin/edit-service/:id' element={<EditServices/>}/>
             {/* Admin Cars */}
           
             {/* Users */}

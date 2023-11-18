@@ -14,24 +14,34 @@ const initialState = {
     image: null
 }
 function AddServices() {
+    useRedirectLoggedUser('/login');
 
     const isLoggedIn = useSelector(selectIsLoggedInd);
     const dispatch = useDispatch();
     const { isLoading, isError, isSuccess, message } = useSelector((state) => state.services);
-    useRedirectLoggedUser('/login');
 
     const [service, setService] = useState(initialState);
-    const [serviceImage, setServiceImage] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
+    
 
 
     const navigate = useNavigate();
 
     const { title, description, image } = service;
-    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setService({ ...service, [name]: value });
+    };
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setService({ ...service, image: file });
+        setImagePreview(URL.createObjectURL(file));
+    };
+
 
 
     const handleSaveService = async (e) => {
+        e.preventDefault();
         if (isLoggedIn) {
             const formData = new FormData();
             formData.append("title", title);
@@ -58,8 +68,10 @@ function AddServices() {
                 <ServiceForm
                     service={service}
                     setService={setService}
+                    imagePreview={imagePreview}
+                    handleImageChange={handleImageChange}
+                    handleInputChange={handleInputChange}
                     handleSaveService={handleSaveService}
-
                     labelButton="Créer"
                 />
             </AdminLayout>

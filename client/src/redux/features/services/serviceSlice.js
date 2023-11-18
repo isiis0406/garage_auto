@@ -202,11 +202,11 @@ const serviceSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = true;
             state.isError = false;
-            const serviceIndex = state.clients.findIndex(service => service.id === action.payload.id);
+            const serviceIndex = state.services.findIndex(service => service.id === action.payload.id);
             if (serviceIndex !== -1) {
-                state.clients[serviceIndex] = action.payload;
+                state.services[serviceIndex] = action.payload;
             }
-            // toast.success('Client modifié avec succès');
+            toast.success('Service modifié avec succès');
         })
         .addCase(updateService.rejected, (state, action) => {
             state.isLoading = false;

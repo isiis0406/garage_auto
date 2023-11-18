@@ -10,16 +10,25 @@ import { selectIsLoggedInd } from '../../../redux/features/auth/authSlice.js';
 import useRedirectLoggedOutUser from '../../../customHook/useRedirectLoggedOutUser.js';
 import { getServices, selectIsLoading, selectServices } from '../../../redux/features/services/serviceSlice.js';
 import Loader from '../../../components/loader/loader.js';
+import { useNavigate } from 'react-router-dom';
 const Services = () => {
     useRedirectLoggedOutUser('/login');
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const isLoggedIn = useSelector(selectIsLoggedInd);
     // Récupérer les états globaux depuis le redux
     const { services, isLoading, isError, message } = useSelector((state) => state.services);
 
-
-
+    const handleView = async (id) => {
+        await navigate(`/admin/services/${id}`)
+    };
+    const handleEdit = async (id) => {
+        await navigate(`/admin/edit-service/${id}`)
+    };
+    const handleDelete = async (id) => {   
+       // await dispatch(deleteService(id));
+        //await dispatch(getServices());
+    }
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -45,7 +54,13 @@ const Services = () => {
             {services &&
                 <AdminLayout title="Gestion des Services">
                     <Action to="/admin/add-service">Ajouter un Service</Action>
-                    <ReusableTable columns={columns} data={services} />
+                    <ReusableTable 
+                    columns={columns} 
+                    data={services} 
+                    handleView={handleView}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                    />
                 </AdminLayout>}
         </>
     );
