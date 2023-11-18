@@ -11,7 +11,7 @@ const Sidebar = () => {
                 <Logo src={logo} />
             </SidebarHead>
             <SidebarMenu>
-                <SidebarLink to="/admin">
+                <SidebarLink to="/">
                     <FaHome /> Accueil
                 </SidebarLink>
                 <SidebarLink to="/admin/services">
@@ -40,7 +40,8 @@ export default Sidebar;
 const SidebarContainer = styled.aside`
     background: #2e6378;
     width: 150px;
-    height: 100vh;
+    position: fixed;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

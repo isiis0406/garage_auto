@@ -7,6 +7,7 @@ import ForgotPassword from './auth/ForgotPassword';
 import ResetPassword from './auth/ResetPassword';
 import Dashboard from '../Pages/Dashboard';
 import Services from './admin/services/Services';
+import AddServices from './admin/services/AddServices';
 // import AddUser from './user/AddUser';
 // import Users from './user/User';
 // import EditUser from './user/EditUser';
@@ -23,11 +24,13 @@ function Pages() {
             <Route path='/forgotpassword' element={<ForgotPassword/>}/>
             <Route path='/resetpassword/:resetToken' element={<ResetPassword/>}/>
             
-             <Route path='/dashboard' element={<Dashboard/>}/>
+             <Route path='/admin' element={<Dashboard/>}/>
             
 
             { /* Admin Services */}
             <Route path='/admin/services' element={<Services/>}/>
+            <Route path='/admin/add-service' element={<AddServices/>}/>
+            {/* Admin Cars */}
           
             {/* Users */}
             {/* <Route path='/admin/users' element={<Users/>}/>

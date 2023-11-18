@@ -1,4 +1,4 @@
-import AdminLayout from '../../../components/adminLayout/AdminLayout.js';
+import AdminLayout from '../../../components/admin/adminLayout/AdminLayout.js';
 import styled from 'styled-components';
 import ReusableTable from '../../../components/table/ReusableTable.js';
 import logo from '../../../assets/images/logo1.png';
@@ -44,7 +44,7 @@ const Services = () => {
             {isLoading && <Loader />}
             {services &&
                 <AdminLayout title="Gestion des Services">
-                    <Action>Ajouter un Service</Action>
+                    <Action to="/admin/add-service">Ajouter un Service</Action>
                     <ReusableTable columns={columns} data={services} />
                 </AdminLayout>}
         </>
