@@ -142,6 +142,7 @@ export const getUser = asyncHandler(async (req, res) => {
 });
 
 
+
 //Update user
 export const updateUser = asyncHandler(async (req, res) => {
   const { id } = req.params; // Récupération de l'ID de l'utilisateur depuis les paramètres de la requête

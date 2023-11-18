@@ -38,6 +38,7 @@ export const loginUser = async (userData) => {
       return response.data
    }
    } catch (error) {
+      console.log(error);
     const message = (
       error.response && 
       error.response.data && 

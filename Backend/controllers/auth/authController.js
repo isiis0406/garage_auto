@@ -92,7 +92,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   }
 
   // Message neutre pour les erreurs d'authentification
-  return res.status(401).json({ message: "Si les informations fournies sont correctes, vous recevrez un email avec les instructions pour accéder à votre compte." });
+  return res.status(401).json({ message: "Informations incorrectes" });
 });
 
 //Logout User
@@ -281,4 +281,20 @@ export const resetPassword = asyncHandler(async (req, res) => {
 })
 
 
-
+// Get Auth User
+export const getAuthUser = asyncHandler(async (req, res) => {
+    const id = req.user.id;
+    if (!id) {
+      return res.status(404).json({ message: 'Veillez vous authentifier' });
+    }
+    const user = await getAuthUserById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'Veillez vous authentifier' });
+    }
+    return res.status(200).json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    })
+});

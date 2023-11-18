@@ -72,7 +72,7 @@ function Login() {
     <FullHeightContainer>
       <Card>
         
-      {isLoading && "Chargement..."}
+      {isLoading && <Loader />}
       {/* <h2>Login</h2> */}
       <StyledForm onSubmit={handleLogin}>
                     <StyledInput

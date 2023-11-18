@@ -28,7 +28,7 @@ function App() {
       const status = await getLoginStatus();
       if (status) {
         const user = await getUserData();
-        if (user?.profil) {
+        if (user) {
           dispatch(SET_USER(user));
         }
 

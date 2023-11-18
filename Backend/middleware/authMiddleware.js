@@ -6,6 +6,7 @@ export const protect = asyncHandler( async (req, res, next) => {
 
     try {
         const token = req.cookies.token;
+        console.log(token);
         if(!token){
             res.status(401).json({message: "Non authorisé, veillez vous authentifié"});
         }

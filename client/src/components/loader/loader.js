@@ -1,5 +1,5 @@
 import React from "react";
-import loaderImg from "../../assets/loading.gif";
+import loaderImg from "../../assets/bg_centered_loading.gif";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
@@ -26,12 +26,12 @@ export default Loader;
 
 const Wrapper = styled.div`
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-color: #13191A;
-
   z-index: 1000;
-  
   display: flex;
   justify-content: center;
   align-items: center;
