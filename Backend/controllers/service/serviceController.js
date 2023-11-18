@@ -34,7 +34,6 @@ export const getOneService = asyncHandler(async (req, res) => {
 // Create a service
 export const createOneService = asyncHandler(async (req, res) => {
     const { title, description } = req.body;
-    console.log(req.body);
     // Valider les données
     if (!title || !description) {
         return res.status(400).json({ message: "Veuillez remplir tous les champs" });

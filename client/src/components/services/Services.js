@@ -5,47 +5,48 @@ import vidange from "../../assets/images/services/vidange_huile.jpg";
 import diagnostic from "../../assets/images/services/diagnostic_electronic.jpg";
 import climatisation from "../../assets/images/services/climatisation.jpg";
 import peinture from "../../assets/images/services/peinture.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getServices } from "../../redux/features/services/serviceSlice.js";
+import DOMPurify from "dompurify";
+import Loader from "../loader/loader";
+
+// Methode pour raccourcir le texte
+const shortenText = (text, n) => {
+    if (text.length > n) {
+        return text.substring(0, n).concat("...");
+    }
+    return text;
+};
+
 
 const Services = () => {
-    return (
-        <ServicesWrapper>
+    const dispatch = useDispatch();
 
-            <h2>Nos Services</h2>
-            <ServiceGrid class="service-grid">
-                <ServiceItem >
-                    <img src={moteur} alt="Réparation de moteur" />
-                    <h3>Réparation de moteur</h3>
-                    <p>Expertise complète sur les moteurs pour garantir la performance de votre véhicule.</p>
-                </ServiceItem>
-                <ServiceItem >
-                    <img src={pneu} alt="Changement de pneus" />
-                    <h3>Changement de pneus</h3>
-                    <p>Services de montage, équilibrage et remplacement de pneus pour tous types de véhicules.</p>
-                </ServiceItem>
-                <ServiceItem >
-                    <img src={vidange} alt="Vidange d'huile" />
-                    <h3>Vidange d'huile</h3>
-                    <p>Service rapide et efficace de changement d'huile pour maintenir votre moteur en bonne santé.</p>
-                </ServiceItem>
-                <ServiceItem >
-                    <img src={diagnostic} alt="Diagnostic électronique" />
-                    <h3>Diagnostic électronique</h3>
-                    <p>Diagnostics avancés pour identifier et résoudre les problèmes électroniques.</p>
-                </ServiceItem>
-                <ServiceItem >
-                    <img src={climatisation} alt="Entretien de climatisation" />
-                    <h3>Entretien de climatisation</h3>
-                    <p>Services de maintenance et de réparation de systèmes de climatisation pour un confort optimal.
-                    </p>
-                </ServiceItem>
-                <ServiceItem >
-                    <img src={peinture} alt="Peinture et carrosserie" />
-                    <h3>Peinture et carrosserie</h3>
-                    <p>Travaux de peinture professionnels et réparations de carrosserie pour tous les types de
-                        véhicules.</p>
-                </ServiceItem>
-            </ServiceGrid>
-        </ServicesWrapper>
+    const { services, isLoading, message } = useSelector(state => state.services);
+    useEffect(() => {
+        dispatch(getServices());
+    }, [dispatch])
+    return (
+        <>
+            {isLoading && <Loader />}
+            <ServicesWrapper>
+
+                <h2>Nos Services</h2>
+                <ServiceGrid class="service-grid">
+                    {
+                        services && services.map((service, index) => (
+                            <ServiceItem key={index}>
+                                <img src={service.image_path} alt={service.title} />
+                                <h3>{service.title}</h3>
+                                <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(shortenText(service.description, 100)) }}></p>
+                            </ServiceItem>
+                        ))
+                    }
+
+                </ServiceGrid>
+            </ServicesWrapper>
+        </>
     )
 }
 
