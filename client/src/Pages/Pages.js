@@ -5,7 +5,8 @@ import Login from './auth/Login';
 import Register from './auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
 import ResetPassword from './auth/ResetPassword';
-// import Dashboard from '../Pages/Dashboard';
+import Dashboard from '../Pages/Dashboard';
+import Services from './admin/services/Services';
 // import AddUser from './user/AddUser';
 // import Users from './user/User';
 // import EditUser from './user/EditUser';
@@ -22,11 +23,11 @@ function Pages() {
             <Route path='/forgotpassword' element={<ForgotPassword/>}/>
             <Route path='/resetpassword/:resetToken' element={<ResetPassword/>}/>
             
-            {/* Dashboard */}
-            {/* <Route path='/dashboard' element={<Dashboard/>}/> */}
+             <Route path='/dashboard' element={<Dashboard/>}/>
             
 
-
+            { /* Admin Services */}
+            <Route path='/admin/services' element={<Services/>}/>
           
             {/* Users */}
             {/* <Route path='/admin/users' element={<Users/>}/>

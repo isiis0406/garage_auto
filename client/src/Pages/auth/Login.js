@@ -56,7 +56,7 @@ function Login() {
         await dispatch(SET_NAME(data.name));
         await dispatch(SET_USER(data));
         setIsLoading(false);
-        navigate('/')
+        navigate('/dashboard')
 
       } else {
         setIsLoading(false);

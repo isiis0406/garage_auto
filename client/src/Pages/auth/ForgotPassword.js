@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { forgotPassword, validateEmail } from '../../services/authService';
 import Loader from '../../components/loader/loader';
-import AuthForm from '../../components/auth/AuthForm';
-import Input from '../../components/auth/Input';
-import AuthButton from '../../components/auth/AuthButton';
 import { customErrorToast } from '../../components/toast/customToat';
 import { Card, FullHeightContainer, PrimaryButton, StyledForm, StyledInput, StyledLink } from '../../components/auth/partials/StyledComponents';
 
@@ -18,10 +12,10 @@ function ForgotPassword() {
   const handleForgot = async (e) => {
     e.preventDefault();
     if (!email) {
-      return customErrorToast('dark', 'Veillez saisir une adresse email');
+      return customErrorToast('light', 'Veillez saisir une adresse email');
     }
     if (!validateEmail(email)) {
-      return customErrorToast('dark', 'Veillez saisir une adresse email valide');
+      return customErrorToast('light', 'Veillez saisir une adresse email valide');
     }
     const userData = {
       email
