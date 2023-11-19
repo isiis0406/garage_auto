@@ -39,9 +39,9 @@ const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete }) 
                         })}
                         <td className='actions'>
                             <div className='action_container'>
-                                <FaEye className='view' onClick={() => handleView(row.id)}>Voir</FaEye>
-                                <FaEdit className='edit' onClick={() => handleEdit(row.id)}>Modifier</FaEdit>
-                                <FaTrash className='delete' onClick={() => handleDelete(row.id)}>Supprimer</FaTrash>
+                                { handleView && <FaEye className='view' onClick={() => handleView(row.id)} />}
+                                { handleEdit && <FaEdit className='edit' onClick={() => handleEdit(row.id)} />}
+                                { handleDelete && <FaTrash className='delete' onClick={() => handleDelete(row.id)} />}
                             </div>
                         </td>
                     </tr>

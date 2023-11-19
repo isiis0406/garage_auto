@@ -5,149 +5,62 @@ import styled from 'styled-components';
 
 const UserForm = (
     {
-        car,
-        setCar,
-        imagePreview,
+        user,
+        setUser,
         handleInputChange,
-        handleImageChange,
-        handleSaveCar,
+        handleSaveUser,
         labelButton
     }) => {
 
 
     return (
         <Wrapper>
-            <AddCar>
+            <AddUser>
                 <Card>
-                    <form onSubmit={handleSaveCar}>
+                    <form onSubmit={handleSaveUser}>
 
-
-                        <GroupLine>
-                            <Group>
-                                <Label>Marque :</Label>
-                                <StyledInput
-                                    type="text"
-                                    name="brand"
-                                    value={car?.brand}
-                                    onChange={handleInputChange}
-                                />
-
-                            </Group>
-                            <Group>
-                                <Label>Modèle :</Label>
-                                <StyledInput
-                                    type="text"
-                                    name="model"
-                                    value={car?.model}
-                                    onChange={handleInputChange}
-                                />
-                            </Group>
-                        </GroupLine>
-                        <GroupLine>
-                            <Group>
-                                <Label>Année de sortie :</Label>
-                                <StyledInput
-                                    type="number"
-                                    name="release_year"
-                                    value={car?.release_year}
-                                    onChange={handleInputChange}
-                                />
-                            </Group>
-                            <Group>
-                                <Label>Prix :</Label>
-                                <StyledInput
-                                    type="number"
-                                    name="price"
-                                    value={car?.price}
-                                    onChange={handleInputChange}
-                                />
-                            </Group>
-                        </GroupLine>
                         <Group>
-                            <Label>Kilométrage :</Label>
+                            <Label>Nom complet :</Label>
                             <StyledInput
-                                type="number"
-                                name="kilometers"
-                                value={car?.kilometers}
+                                type="text"
+                                name="name"
+                                value={user?.name}
                                 onChange={handleInputChange}
                             />
                         </Group>
                         <Group>
-                            <Label>Image :</Label>
-                            <code className="format">
-                                Formats supportés : jpg, jpeg, png
-                            </code>
+                            <Label>Email :</Label>
                             <StyledInput
-                                type="file"
-                                name="image"
-                                accept="image/*"
-                                onChange={(e) => { handleImageChange(e) }}
+                                type="email"
+                                name="email"
+                                value={user?.email}
+                                onChange={handleInputChange}
                             />
-                            {imagePreview && (
-                                <ImagePreview>
-                                    <img src={imagePreview} alt="Aperçu" />
-                                </ImagePreview>
-                            )}
                         </Group>
-
                         <Group>
-                            <Label>Description :</Label>
-                            <ReactQuill
-                                theme="snow"
-                                value={car?.description}
-                                onChange={value => setCar({ ...car, description: value })}
-                                modules={UserForm.modules}
-                                formats={UserForm.formats}
-                                className='quill'
-                            />
+                            <Label>rôle :</Label>
+                            <StyledSelect
+                                name="role"
+                                value={user?.role}
+                                onChange={handleInputChange}
+                            >
+                                <option value="admin">Admin</option>
+                                <option value="employee">Employé</option>
+                            </StyledSelect>
                         </Group>
+                
+
+                      
 
                         <ButtonContainer>
                             <Button type="submit">{labelButton}</Button>
                         </ButtonContainer>
                     </form>
                 </Card>
-            </AddCar>
+            </AddUser>
         </Wrapper>
     );
 };
-
-UserForm.modules = {
-    toolbar: [
-        [{ header: "1" }, { header: "2" }, { font: [] }],
-        [{ size: [] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [{ align: [] }],
-        [{ color: [] }, { background: [] }],
-        [
-            { list: "ordered" },
-            { list: "bullet" },
-            { indent: "-1" },
-            { indent: "+1" },
-        ],
-        ["clean"],
-    ],
-};
-UserForm.formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "color",
-    "background",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "video",
-    "image",
-    "code-block",
-    "align",
-];
 
 export default UserForm;
 
@@ -170,7 +83,7 @@ const Wrapper = styled.div`
     }
 `;
 
-const AddCar = styled.div`
+const AddUser = styled.div`
     width: 100%;
     max-width: 800px;
     margin: 0 auto; 
@@ -213,17 +126,15 @@ const StyledInput = styled.input`
 
 
 `;
-
-
-const ImagePreview = styled.div`
-    margin-top: 1rem;
-    img {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
-        border-radius: 4px;
-    }
+const StyledSelect = styled.select`
+    width: 95%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
 `;
+
+
 
 const ButtonContainer = styled.div`
     display: flex;

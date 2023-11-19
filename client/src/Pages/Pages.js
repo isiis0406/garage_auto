@@ -14,9 +14,10 @@ import Cars from './admin/cars/Cars';
 import AddCars from './admin/cars/AddCars';
 import EditCar from './admin/cars/EditCars';
 import CarDetail from './admin/cars/CarDetail';
-// import AddUser from './user/AddUser';
+import Users from './admin/users/Users';
+import AddUser from './admin/users/AddUser';
+import EditUser from './admin/users/EditUsers';
 // import Users from './user/User';
-// import EditUser from './user/EditUser';
 // import UserList from '../components/table/example/UserList';
 function Pages() {
   return (
@@ -47,9 +48,9 @@ function Pages() {
 
           
             {/* Users */}
-            {/* <Route path='/admin/users' element={<Users/>}/>
+            <Route path='/admin/users' element={<Users/>}/>
             <Route path='/admin/add-user' element={<AddUser/>}/>
-            <Route path='/admin/edit-user/:id' element={<EditUser/>}/> */}
+            <Route path='/admin/edit-user/:id' element={<EditUser/>}/>
 
             {/* test */}
             {/* <Route path='/test' element={<UserList/>}/>         */}

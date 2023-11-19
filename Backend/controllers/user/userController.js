@@ -6,17 +6,40 @@ import bcrypt from 'bcryptjs';
 import { sendEmail } from '../../utils/sendEmail.js';
 
 
+// Fonction pour formater la date d'expiration du token en UTC
+const formatTokenExpiration = (duration, unit) => {
+  const unitsToMs = {
+    'h': 3600000,
+    'm': 60000,
+    's': 1000
+  };
+  const durationInMs = duration * (unitsToMs[unit] || 0);
+  const expiresAt = new Date(Date.now() + durationInMs);
+  return expiresAt.toISOString();
+};
+
+// Fonction pour vérifier si le token a expiré
+const hasTokenExpired = (expiresAtSql) => {
+
+  const expiresAt = new Date(expiresAtSql + 'Z'); // Ajout de 'Z' pour clarifier que c'est en UTC.
+  // L'heure actuelle en UTC.
+  const nowUtc = new Date();
+  return nowUtc > expiresAt; // Si maintenant est plus grand que l'expiration, le token a expiré.
+};
+
+
 
 // Register user
 export const userRegister = asyncHandler(async (req, res) => {
   // Extraction des données envoyées par l'utilisateur
-  const { name, email, role, password } = req.body;
+  const { name, email, role } = req.body;
 
   // Validation des données reçues
-  if (!name || !email || !role || !password) {
+  if (!name || !email || !role) {
     // Si une des données est manquante, envoie une réponse d'erreur
     return res.status(400).json({ message: "Veuillez saisir tous les champs" });
   }
+  console.log(name, email, role);
 
   // Vérification si l'adresse email est déjà utilisée
   const userExists = await getUserByEmail(email);
@@ -25,21 +48,14 @@ export const userRegister = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Adresse email déjà utilisée" });
   }
 
-  // Vérification de la longueur du mot de passe
-  if (password.length < 6) {
-    // Si le mot de passe a moins de 6 caractères, envoie une réponse d'erreur
-    return res.status(400).json({ message: "Le mot de passe doit contenir au moins 6 caractères" });
-  }
 
   // Formatage de l'adresse email en minuscules
   const formatedEmail = email.toLowerCase();
 
-  // Génération d'un sel et hachage du mot de passe
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  
 
   // Création d'un nouvel utilisateur dans la base de données
-  const result = await createUser(name, formatedEmail, hashedPassword, role);
+  const result = await createUser(name, formatedEmail, role);
 
   // Si l'utilisateur est créé avec succès, procéder avec la création du token de réinitialisation
   if (result.insertId) {
@@ -60,9 +76,9 @@ export const userRegister = asyncHandler(async (req, res) => {
     // Création de la date d'expiration du token
     const expiresAt = new Date(Date.now() + 1440 * 60 * 1000);
     const expiresAtSql = expiresAt.toISOString().slice(0, 19).replace('T', ' ');
-
+    const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
     // Enregistrement du token haché dans la base de données
-    await createToken(userId, hashedToken, expiresAtSql);
+    await createToken(userId, hashedToken, createdAt, expiresAtSql);
 
     // Construction de l'URL de réinitialisation du mot de passe
     const resetUrl = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
