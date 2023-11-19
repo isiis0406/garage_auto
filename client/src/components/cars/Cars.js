@@ -1,54 +1,72 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import peugeot from "../../assets/images/cars/peugeot_308.jpg";
 import renault from "../../assets/images/cars/Renault-Clio-2018.jpg";
 import volkswagen from "../../assets/images/cars/Volkswagen Golf - 2019.jpg";
+import { useDispatch, useSelector } from 'react-redux';
+import { getCars } from '../../redux/features/cars/carSlice';
+import Loader from '../loader/loader';
+
+// Methode pour raccourcir le texte
+const shortenText = (text, n) => {
+    if (text.length > n) {
+        return text.substring(0, n).concat("...");
+    }
+    return text;
+};
+
 
 const Cars = () => {
+    const dispatch = useDispatch();
+
+    const { cars, isLoading, message } = useSelector(state => state.cars);
+    useEffect(() => {
+        dispatch(getCars());
+    }, [dispatch])
     return (
-        <CarsWrapper>
-            <Container>
-                <h2>Voitures d'occasion</h2>
-                <CarFilters>
-                    <Filter>
-                        <label htmlFor="kilometer-range">Kilométrage</label>
-                        <input type="range" id="kilometer-min" name="kilometer-min" min="0" max="300000" value="0" />
-                        <div className='basis'>
-                            <Output id="kilometer-range">0km - 300000km</Output>
-                            <ResetBtn>Réinitialiser</ResetBtn>
-                        </div>
-                    </Filter>
-                    <Filter>
-                        <label htmlFor="price-range">Prix</label>
-                        <input type="range" id="price-min" name="price-min" min="0" max="100000" value="0" />
-                        <div className='basis'>
-                            <Output id="price-range">0€ - 100000€</Output>
-                            <ResetBtn>Réinitialiser</ResetBtn>
-                        </div>
-                    </Filter>
-                </CarFilters>
-                <CarGrid>
-                    <CarItem>
-                        <img src={peugeot} alt="Peugeot 308 - 2017" />
-                        <h3>Peugeot 308 - 2017</h3>
-                        <p>Kilométrage: <span>50,000 km</span></p>
-                        <p>Prix: <span>15,000€</span></p>
-                    </CarItem>
-                    <CarItem>
-                        <img src={renault} alt="Renault Clio - 2018" />
-                        <h3>Renault Clio - 2018</h3>
-                        <p>Kilométrage: <span>30,000 km</span></p>
-                        <p>Prix: <span>12,500€</span></p>
-                    </CarItem>
-                    <CarItem>
-                        <img src={volkswagen} alt="Volkswagen Golf - 2019" />
-                        <h3>Volkswagen Golf - 2019</h3>
-                        <p>Kilométrage: <span>20,000 km</span></p>
-                        <p>Prix: <span>18,000€</span></p>
-                    </CarItem>
-                </CarGrid>
-            </Container>
-        </CarsWrapper>
+        <>
+            {isLoading && <Loader />}
+            <CarsWrapper>
+                <Container>
+                    <h2>Voitures d'occasion</h2>
+                    <CarFilters>
+                        <Filter>
+                            <label htmlFor="kilometer-range">Kilométrage</label>
+                            <input type="range" id="kilometer-min" name="kilometer-min" min="0" max="300000" value="0" />
+                            <div className='basis'>
+                                <Output id="kilometer-range">0km - 300000km</Output>
+                                <ResetBtn>Réinitialiser</ResetBtn>
+                            </div>
+                        </Filter>
+                        <Filter>
+                            <label htmlFor="price-range">Prix</label>
+                            <input type="range" id="price-min" name="price-min" min="0" max="100000" value="0" />
+                            <div className='basis'>
+                                <Output id="price-range">0€ - 100000€</Output>
+                                <ResetBtn>Réinitialiser</ResetBtn>
+                            </div>
+                        </Filter>
+                    </CarFilters>
+                    <CarGrid>
+                        { cars && cars.map((car, index) => (
+                            <CarItem key={index}>
+                                <img src={car.image_path} alt={car.model} />
+                                <h3>{car.model}</h3>
+                                <p>Kilométrage: <span>{car.kilometers} km</span></p>
+                                <p>Prix: <span>{car.price}€</span></p>
+                                <button class="details-btn">Se renseigner</button>
+
+                            </CarItem>
+                        ))
+                        }
+                        
+                    </CarGrid>
+                </Container>
+            </CarsWrapper>
+
+        </>
+
+
     )
 }
 
@@ -161,5 +179,16 @@ const CarItem = styled.div`
     span {
         font-weight: bold;
         color: #1e4a5f;
+    }
+    .details-btn {
+        background-color: #2e6378;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        margin: 1rem;
+        transition: background-color 0.3s ease-in-out;
     }
 `;

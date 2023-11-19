@@ -5,7 +5,7 @@ const API_URL_CLIENT = `${BACKEND_URL}/api/cars`; // L'url de notre Endpoint
 
 // Crée une nouvelle voiture
 const createCar = async (formData) => {
-    const res = await axios.post(`${API_URL_CLIENT}`, formData);
+    const res = await axios.post(`${API_URL_CLIENT}/create`, formData);
     return res.data;
 }
 

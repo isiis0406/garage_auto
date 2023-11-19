@@ -10,6 +10,10 @@ import Services from './admin/services/Services';
 import AddServices from './admin/services/AddServices';
 import EditServices from './admin/services/EditServices';
 import ServiceDetail from './admin/services/ServiceDetail';
+import Cars from './admin/cars/Cars';
+import AddCars from './admin/cars/AddCars';
+import EditCar from './admin/cars/EditCars';
+import CarDetail from './admin/cars/CarDetail';
 // import AddUser from './user/AddUser';
 // import Users from './user/User';
 // import EditUser from './user/EditUser';
@@ -35,6 +39,12 @@ function Pages() {
             <Route path='/admin/edit-service/:id' element={<EditServices/>}/>
             <Route path='/admin/service-detail/:id' element={<ServiceDetail/>}/>
             {/* Admin Cars */}
+            <Route path='/admin/cars' element={<Cars/>}/>
+            <Route path='/admin/add-car' element={<AddCars/>}/>
+            <Route path='/admin/edit-car/:id' element={<EditCar/>}/>
+            <Route path='/admin/car-detail/:id' element={<CarDetail/>}/>
+
+
           
             {/* Users */}
             {/* <Route path='/admin/users' element={<Users/>}/>
