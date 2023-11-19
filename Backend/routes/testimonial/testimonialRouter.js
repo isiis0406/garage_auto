@@ -5,7 +5,8 @@ import {
     getOneTestimonial, 
     createOneTestimonial, 
     updateOneTestimonial, 
-    deleteOneTestimonial 
+    deleteOneTestimonial, 
+    approveOneTestimonial
 } from "../../controllers/testimonials/testimonialsController.js";
 
 
@@ -20,6 +21,9 @@ router.get("/:id", getOneTestimonial);
 
 // POST a new testimonial
 router.post("/", createOneTestimonial);
+
+// Approve a testimonial
+router.patch("/approve/:id", protect, approveOneTestimonial);
 
 // PUT a testimonial
 router.patch("/:id", updateOneTestimonial);

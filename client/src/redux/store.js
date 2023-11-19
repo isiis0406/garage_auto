@@ -4,6 +4,7 @@ import filterReducer from './features/filterSlice';
 import serviceReducer from './features/services/serviceSlice';
 import carReducer from './features/cars/carSlice';
 import userReducer from './features/users/userSlice';
+import testimonialReducer from './features/testimonials/testimonialSlice';
 
 
 export const store = configureStore({
@@ -13,5 +14,6 @@ export const store = configureStore({
         services: serviceReducer,
         cars: carReducer,
         users: userReducer,
+        testimonials: testimonialReducer
     }
 })

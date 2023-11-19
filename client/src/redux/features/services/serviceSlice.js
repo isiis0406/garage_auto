@@ -223,7 +223,7 @@ const serviceSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = true;
             state.isError = false;
-            state.services = state.services.filter(service => service._id !== action.payload);
+            state.services = state.services.filter(service => service.id !== action.payload);
             toast.success('Service supprimé avec succès');
         })
         .addCase(deleteService.rejected, (state, action) => {

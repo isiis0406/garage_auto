@@ -39,8 +39,6 @@ export const userRegister = asyncHandler(async (req, res) => {
     // Si une des données est manquante, envoie une réponse d'erreur
     return res.status(400).json({ message: "Veuillez saisir tous les champs" });
   }
-  console.log(name, email, role);
-
   // Vérification si l'adresse email est déjà utilisée
   const userExists = await getUserByEmail(email);
   if (userExists) {

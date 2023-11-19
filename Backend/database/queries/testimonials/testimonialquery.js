@@ -25,9 +25,9 @@ export const getTestimonial = async (id) => {
 // Create a testimonial
 export const createTestimonial = async (testimonial) => {
     try {
-        const result = await pool.query(`INSERT INTO testimonials (email, content, rating) 
-        VALUES (?, ?, ?)`,
-            [testimonial.email, testimonial.content, testimonial.rating])
+        const result = await pool.query(`INSERT INTO testimonials (name,email, content, rating) 
+        VALUES (?,?, ?, ?)`,
+            [testimonial.name, testimonial.email, testimonial.content, testimonial.rating])
         const newTestimonial = await getTestimonial(result.insertId);
         return newTestimonial;
     } catch (error) {
@@ -40,13 +40,31 @@ export const updateTestimonial = async (id, testimonial) => {
     try {
         const result = await pool.query(`
         UPDATE testimonials 
-        SET email = ?, content = ?, rating = ? 
+        SET name = ?, email = ?, content = ?, rating = ? 
         WHERE id = ?`,
-            [testimonial.email, testimonial.content, testimonial.rating, id])
+            [testimonial.name, testimonial.email, testimonial.content, testimonial.rating, id])
         if(result){
             const updatedTestimonial = await getTestimonial(id);
             return updatedTestimonial;
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// Approve a testimonial
+export const approveTestimonial = async (id, testimonial) => {
+    try {
+        const result = await pool.query(`
+        UPDATE testimonials 
+        SET status = ? 
+        WHERE id = ?`, 
+        [testimonial.status ,id])
+        if(result){
+            const approvedTestimonial = await getTestimonial(id);
+            return approvedTestimonial;
+        }
+        return approvedTestimonial;
     } catch (error) {
         console.log(error);
     }

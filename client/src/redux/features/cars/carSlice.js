@@ -226,7 +226,7 @@ const carSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = true;
             state.isError = false;
-            state.cars = state.cars.filter(car => car._id !== action.payload);
+            state.cars = state.cars.filter(car => car.id !== action.payload);
             toast.success('Voiture supprimée avec succès');
         })
         .addCase(deleteCar.rejected, (state, action) => {

@@ -64,9 +64,11 @@ CREATE TABLE cars(
 /* Testimonials */
 CREATE TABLE testimonials(
    id INT AUTO_INCREMENT,
+   name VARCHAR(55) NOT NULL,
    email VARCHAR(55) NOT NULL,
    content VARCHAR(255), 
    rating INT,
+   status enum('soumis','approuvé','archivé') DEFAULT 'soumis',
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY(id),
