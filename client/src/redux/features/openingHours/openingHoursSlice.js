@@ -97,8 +97,8 @@ const openingHoursSlice = createSlice({
 });
 
 
-export const selectOpeningHours = (state) => state.openingHour.openingHours;
-export const selectIsLoading = (state) => state.car.isLoading;
-export const selectIsSuccess = (state) => state.car.isSuccess;
-export const selectIsError = (state) => state.car.isError;
+export const selectOpeningHours = (state) => state.openingHours.openingHours;
+export const selectIsLoading = (state) => state.openingHours.isLoading;
+export const selectIsSuccess = (state) => state.openingHours.isSuccess;
+export const selectIsError = (state) => state.openingHours.isError;
 export default openingHoursSlice.reducer;

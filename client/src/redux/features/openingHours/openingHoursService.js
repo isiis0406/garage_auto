@@ -12,6 +12,7 @@ const createOpeningHours = async (formData) => {
 // Récupérer tous les horaires d'ouverture
 const getOpeningHours = async () => {
     const res = await axios.get(API_URL_CLIENT);
+    console.log(res.data);
     return res.data;
 }
 

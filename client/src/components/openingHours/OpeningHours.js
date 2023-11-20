@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getOpeningHours, selectIsLoading, selectOpeningHours } from '../../redux/features/openingHours/openingHoursSlice';
 
 const OpeningHours = () => {
+    const dispatch = useDispatch();
+    const openingHours = useSelector(selectOpeningHours);
+    const isLoading = useSelector(selectIsLoading);
+    useEffect(() => {
+        dispatch(getOpeningHours());
+    }, [dispatch])
+
     return (
         <OpeningHoursWrapper>
             <Container>
@@ -16,40 +25,15 @@ const OpeningHours = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Lundi</td>
-                                <td>08:45 - 12:00</td>
-                                <td>14:00 - 18:00</td>
-                            </tr>
-                            <tr>
-                                <td>Mardi</td>
-                                <td>08:45 - 12:00</td>
-                                <td>14:00 - 18:00</td>
-                            </tr>
-                            <tr>
-                                <td>Mercredi</td>
-                                <td>08:45 - 12:00</td>
-                                <td>14:00 - 18:00</td>
-                            </tr>
-                            <tr>
-                                <td>Jeudi</td>
-                                <td>08:45 - 12:00</td>
-                                <td>14:00 - 18:00</td>
-                            </tr>
-                            <tr>
-                                <td>Vendredi</td>
-                                <td>08:45 - 12:00</td>
-                                <td>14:00 - 18:00</td>
-                            </tr>
-                            <tr>
-                                <td>Samedi</td>
-                                <td>08:45 - 12:00</td>
-                                <td>Fermé</td>
-                            </tr>
-                            <tr>
-                                <td>Dimanche</td>
-                                <td colSpan="2">Fermé</td>
-                            </tr>
+                            {openingHours && openingHours?.map((hour, index) => (
+                                <tr key={index}>
+                                    <td>{hour.day}</td>
+                                    <td>{hour.morning_hours}</td>
+                                    <td>{hour.afternoon_hours}</td>
+                                </tr>
+                            ))}
+                        
+                            
                         </tbody>
                     </HoursTable>
                 </Hours>
