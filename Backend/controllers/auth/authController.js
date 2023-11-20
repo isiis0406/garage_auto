@@ -26,7 +26,9 @@ const formatTokenExpiration = (duration, unit) => {
   };
   const durationInMs = duration * (unitsToMs[unit] || 0);
   const expiresAt = new Date(Date.now() + durationInMs);
-  return expiresAt.toISOString();
+
+  // Formatage pour MySQL
+  return expiresAt.toISOString().slice(0, 19).replace('T', ' ');
 };
 
 // Fonction pour vérifier si le token a expiré
