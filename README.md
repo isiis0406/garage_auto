@@ -1,3 +1,10 @@
+Application Web pour Garage Automobile
+
+
+Ce projet, développé dans le cadre de ma formation en développement web et mobile, est une application web pour un garage automobile. L'objectif est de fournir une plateforme où les clients peuvent explorer les services offerts, consulter les voitures d'occasion, connaître les horaires d'ouverture et contacter le garage. L'application inclut également un espace d'administration pour gérer les contenus et les requêtes clients.
+
+
+
 Configuration et Lancement en Local
 
  
