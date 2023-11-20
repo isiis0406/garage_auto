@@ -15,7 +15,12 @@ export const getTestimonials = async () => {
 // Get one testimonial
 export const getTestimonial = async (id) => {
     try {
-        const [row] = await pool.query(`SELECT * FROM testimonials WHERE id = ?`, [id])
+        const [row] = await pool.query(`
+        SELECT * 
+        FROM testimonials 
+        WHERE id = ?
+        `
+        , [id])
         return row[0];
     } catch (error) {
         console.log(error)

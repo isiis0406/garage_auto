@@ -45,7 +45,6 @@ function AddCars() {
 
 
     const handleSaveCar = async (e) => {
-        console.log('handleSaveCar');
         e.preventDefault();
         if (isLoggedIn) {
             const formData = new FormData();

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaHome, FaCar, FaUsers, FaEnvelope, FaStar } from 'react-icons/fa';
+import { FaHome, FaCar, FaUsers, FaEnvelope, FaStar, FaClock } from 'react-icons/fa';
 import { GrServices } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo1.png';
@@ -20,6 +20,9 @@ const Sidebar = () => {
                 <SidebarLink to="/admin/cars">
                     <FaCar /> Voitures
                 </SidebarLink>
+                <SidebarLink to="/admin/opening_hours">
+                    <FaClock /> Horaires
+                </SidebarLink>
                 <SidebarLink to="/admin/users">
                     <FaUsers /> Utilisateurs
                 </SidebarLink>
@@ -27,7 +30,7 @@ const Sidebar = () => {
                     <FaEnvelope /> Messages
                 </SidebarLink>
                 <SidebarLink to="/admin/testimonials">
-                    <FaStar /> Témoignages
+                    <FaStar /> Avis
                 </SidebarLink>
                 {/* Ajoutez d'autres liens ici si nécessaire */}
             </SidebarMenu>

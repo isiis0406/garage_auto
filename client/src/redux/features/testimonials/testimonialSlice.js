@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify';
-import carService from './testimonialsService';
 import testimonialService from './testimonialsService';
 
 
@@ -91,9 +90,9 @@ export const updateTestimonial = createAsyncThunk(
 // Approuver un avis
 export const approveTestimonial = createAsyncThunk(
     "testimonials/approve",
-    async ({ id, formData }, thunkAPI) => {
+    async ( id, thunkAPI) => {
         try {
-            return await testimonialService.approveTestimonial(id, formData);
+            return await testimonialService.approveTestimonial(id);
         } catch (error) {
             const message = (
                 error.response &&
@@ -142,7 +141,7 @@ const testimonialSlice = createSlice({
                 state.isSuccess = true;
                 state.isError = false;
                 state.testimonials.push(action.payload);
-                toast.success('Avis ajouté avec succès');
+                toast.success('Votre témoignage a été enregistré, il sera approuvé et publier dans les 24 heures qui suivent😉.');
             })
             .addCase(createTestimonial.rejected, (state, action) => {
                 state.isLoading = false;

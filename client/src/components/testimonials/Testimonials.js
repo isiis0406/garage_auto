@@ -1,62 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getTestimonials } from '../../redux/features/testimonials/testimonialSlice';
+import DOMPurify from 'dompurify';
+import { Link } from 'react-router-dom';
+
+// Methode pour raccourcir le texte
+const shortenText = (text, n) => {
+    if (text.length > n) {
+        return text.substring(0, n).concat("...");
+    }
+    return text;
+};
+
+
+const filterApprovedTestimonials = (testimonials) => {
+    return testimonials.filter(testimonial => testimonial.status === 'approuvé');
+}
 
 const Testimonials = () => {
+    const [approvedTestimonials, setApprovedTestimonials] = useState([]);
+
+    const dispatch = useDispatch();
+    
+    
+    
+    useEffect(() => {
+        dispatch(getTestimonials());
+    }, [dispatch])
+    
+    const { testimonials, isLoading, message } = useSelector(state => state.testimonials);
+    console.log(filterApprovedTestimonials(testimonials));
     return (
         <TestimonialsWrapper>
             <Container>
                 <h2>Avis de nos clients</h2>
                 <TestimonialsGrid>
 
-                    <TestimonialItem>
-                        <TestimonialRating>★★★★★</TestimonialRating>
-                        <TestimonialContent>"J'ai été impressionné par le professionnalisme et le service rapide. Je recommande sans hésiter!"</TestimonialContent>
-                        <TestimonialAuthor>Martine Lavoie</TestimonialAuthor>
-                    </TestimonialItem>
-                    <TestimonialItem>
-                        <TestimonialRating>
-                            ★★★★☆
-                        </TestimonialRating>
-                        <TestimonialContent>"Service de qualité et conseils honnêtes. Un léger retard dans la
-                            livraison, mais dans l'ensemble satisfait."</TestimonialContent>
-                        <TestimonialAuthor>Bernard Dupuis</TestimonialAuthor>
-                    </TestimonialItem>
+                    {testimonials && filterApprovedTestimonials(testimonials).map((testimonial, index) => (
+                        <TestimonialItem key={index}>
+                            <TestimonialRating>
+                                {testimonial?.rating === 1 ? (
+                                    <span>★</span>
+                                ) : testimonial?.rating === 2 ? (
+                                    <span>★★</span>
+                                ) : testimonial?.rating === 3 ? (
+                                    <span>★★★</span>
+                                ) : testimonial?.rating === 4 ? (
+                                    <span>★★★★</span>
+                                ) : testimonial?.rating === 5 ? (
+                                    <span>★★★★★</span>
+                                ) : (
+                                    ''
+                                )}
+                            </TestimonialRating>
+                            {testimonial?.content && <TestimonialContent dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(shortenText(testimonial?.content, 100)) }}></TestimonialContent>}
+                            <TestimonialAuthor>{testimonial?.name}</TestimonialAuthor>
+                        </TestimonialItem>
+                    ))}
 
-                    <TestimonialItem>
-                        <TestimonialRating>
-                            ★★★★★
-                        </TestimonialRating>
-                        <TestimonialContent>"Des prix compétitifs et un accueil toujours chaleureux. Mon garage
-                            de confiance depuis des années!"</TestimonialContent>
-                        <TestimonialAuthor>Sophie Garnier</TestimonialAuthor>
-                    </TestimonialItem>
-
-                    <TestimonialItem>
-                        <TestimonialRating>
-                            ★★★☆☆
-                        </TestimonialRating>
-                        <TestimonialContent>"Bons services dans l'ensemble mais l'attente a été plus longue que
-                            prévue. Bonne communication cependant."</TestimonialContent>
-                        <TestimonialAuthor>Lucas Martin</TestimonialAuthor>
-                    </TestimonialItem>
-
-                    <TestimonialItem>
-                        <TestimonialRating>★★★★★</TestimonialRating>
-                        <TestimonialContent>"Le personnel est non seulement compétent mais aussi très aimable.
-                            Ils ont pris le temps de m'expliquer le problème de mon véhicule en détail."</TestimonialContent>
-                        <p class="testimonial-author">Emilie Rostand</p>
-                    </TestimonialItem>
-
-                    <TestimonialItem>
-                        <TestimonialRating>★★★★☆</TestimonialRating>
-                        <TestimonialContent>"Après plusieurs visites, je suis toujours aussi satisfait des
-                            services proposés. Un endroit de confiance pour l'entretien de ma voiture."</TestimonialContent>
-                        <p class="testimonial-author">François Duret</p>
-                    </TestimonialItem>
                 </TestimonialsGrid>
                 <Actions>
-                    <Button>Voir tous</Button>
-                    <Button>Donner son avis</Button>
+                    <Button to='/add-testimonial'>Donner son avis</Button>
                 </Actions>
             </Container>
         </TestimonialsWrapper>
@@ -82,7 +87,7 @@ const Container = styled.div`
 
 const TestimonialsGrid = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     margin-top: 1rem;
 `;
@@ -118,7 +123,7 @@ const Actions = styled.div`
     gap: 1rem;
 `;
 
-const Button = styled.button`
+const Button = styled(Link)`
     padding: 10px 20px;
     background-color: #1e4a5f; 
     color: white;
@@ -126,6 +131,7 @@ const Button = styled.button`
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 
     &:hover {
         background-color: #2e6378; 

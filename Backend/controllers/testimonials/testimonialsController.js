@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import { getTestimonial, createTestimonial, updateTestimonial, deleteTestimonial, getTestimonials, approveTestimonial } from '../../database/queries/testimonials/testimonialquery.js';
 
-// Récupérer tous les témoignages
+// Récupérer tous les témoignages pour le public
 export const getAllTestimonials = asyncHandler(async (req, res) => {
     try {
         const testimonials = await getTestimonials();
@@ -12,6 +12,7 @@ export const getAllTestimonials = asyncHandler(async (req, res) => {
         res.status(500).json({ message: "Erreur lors de la récupération des témoignages", error: error.message });
     }
 });
+
 
 // Récupérer un témoignage par son ID
 export const getOneTestimonial = asyncHandler(async (req, res) => {
@@ -41,7 +42,7 @@ export const createOneTestimonial = asyncHandler(async (req, res) => {
         }
         // Créer le témoignage dans la base de données
         const newTestimonial = await createTestimonial({ name, email, content, rating });
-        res.status(201).json({ message: "Témoignage créé avec succès", testimonial: newTestimonial });
+        res.status(201).json({ message: "Votre témoignage a été enregistré, il sera approuvé et publier dans les 24 heures qui suivent😉.", testimonial: newTestimonial });
     } catch (error) {
         res.status(500).json({ message: "Erreur lors de la création du témoignage", error: error.message });
     }

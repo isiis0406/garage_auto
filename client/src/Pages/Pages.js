@@ -17,6 +17,9 @@ import CarDetail from './admin/cars/CarDetail';
 import Users from './admin/users/Users';
 import AddUser from './admin/users/AddUser';
 import EditUser from './admin/users/EditUsers';
+import AddTestimonials from './admin/testimonials/AddTestimonials';
+import Testimonials from './admin/testimonials/Testimonials';
+import TestimonialDetail from './admin/testimonials/TestimonialDetail';
 // import Users from './user/User';
 // import UserList from '../components/table/example/UserList';
 function Pages() {
@@ -45,9 +48,13 @@ function Pages() {
             <Route path='/admin/edit-car/:id' element={<EditCar/>}/>
             <Route path='/admin/car-detail/:id' element={<CarDetail/>}/>
 
+            { /* Admin Testimonials */}
+            <Route path='/admin/testimonials' element={<Testimonials/>}/>
+            <Route path='/add-testimonial' element={<AddTestimonials/>}/>
+            <Route path='/admin/testimonial-detail/:id' element={<TestimonialDetail/>}/>
 
           
-            {/* Users */}
+            {/* Admin Users */}
             <Route path='/admin/users' element={<Users/>}/>
             <Route path='/admin/add-user' element={<AddUser/>}/>
             <Route path='/admin/edit-user/:id' element={<EditUser/>}/>

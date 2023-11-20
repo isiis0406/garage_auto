@@ -34,8 +34,8 @@ const updateTestimonial = async (id, formData) => {
 }
 
 // Approuver un avis
-const approveTestimonial = async (id, formData) => {
-    const res = await axios.patch(`${API_URL_CLIENT}/approve/${id}`, formData);
+const approveTestimonial = async (id) => {
+    const res = await axios.patch(`${API_URL_CLIENT}/approve/${id}`);
     return res.data;
 }
 

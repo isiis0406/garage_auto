@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 import DOMPurify from 'dompurify';
-const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete }) => {
+import { GrStatusGood } from 'react-icons/gr';
+const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete, handleApprouve }) => {
 
     // Sécuriser la description
     const createMarkup = (htmlContent) => {
@@ -29,7 +30,7 @@ const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete }) 
                                 <td key={columnIndex}>
                                     {column.accessor === 'image_path' ? (
                                         <img className="image" src={cellValue} alt={row.title} style={{ width: '100px' }} />
-                                    ) : column.accessor === 'description' ? (
+                                    ) : column.accessor === 'description' || column.accessor === 'content' ? (
                                         <div dangerouslySetInnerHTML={createMarkup(cellValue)} />
                                     ) : (
                                         cellValue
@@ -39,9 +40,10 @@ const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete }) 
                         })}
                         <td className='actions'>
                             <div className='action_container'>
-                                { handleView && <FaEye className='view' onClick={() => handleView(row.id)} />}
-                                { handleEdit && <FaEdit className='edit' onClick={() => handleEdit(row.id)} />}
-                                { handleDelete && <FaTrash className='delete' onClick={() => handleDelete(row.id)} />}
+                                {handleView && <FaEye className='view' onClick={() => handleView(row.id)} />}
+                                {handleApprouve && <GrStatusGood className='approuve' onClick={() => handleApprouve(row.id)} />}
+                                {handleEdit && <FaEdit className='edit' onClick={() => handleEdit(row.id)} />}
+                                {handleDelete && <FaTrash className='delete' onClick={() => handleDelete(row.id)} />}
                             </div>
                         </td>
                     </tr>

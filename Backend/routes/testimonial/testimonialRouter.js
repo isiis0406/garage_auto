@@ -17,10 +17,10 @@ const router = Router();
 router.get("/", getAllTestimonials);
 
 // GET one testimonial
-router.get("/:id", getOneTestimonial);
+router.get("/:id",protect, getOneTestimonial);
 
 // POST a new testimonial
-router.post("/", createOneTestimonial);
+router.post("/create", createOneTestimonial);
 
 // Approve a testimonial
 router.patch("/approve/:id", protect, approveOneTestimonial);
