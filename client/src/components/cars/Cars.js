@@ -1,77 +1,109 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
-import peugeot from "../../assets/images/cars/peugeot_308.jpg";
-import renault from "../../assets/images/cars/Renault-Clio-2018.jpg";
-import volkswagen from "../../assets/images/cars/Volkswagen Golf - 2019.jpg";
 import { useDispatch, useSelector } from 'react-redux';
 import { getCars } from '../../redux/features/cars/carSlice';
 import Loader from '../loader/loader';
 
-// Methode pour raccourcir le texte
-const shortenText = (text, n) => {
-    if (text.length > n) {
-        return text.substring(0, n).concat("...");
-    }
-    return text;
-};
-
-
 const Cars = () => {
     const dispatch = useDispatch();
+    const { cars, isLoading } = useSelector(state => state.cars);
 
-    const { cars, isLoading, message } = useSelector(state => state.cars);
+    // Calculer les valeurs maximales de kilométrage et de prix à partir des voitures
+    const maxKilometers = Math.max(...cars.map(car => car.kilometers));
+    const maxPrice = Math.max(...cars.map(car => car.price));
+
+    const [filters, setFilters] = useState({
+        kilometerMin: 0,
+        kilometerMax: maxKilometers,
+        priceMin: 0,
+        priceMax: maxPrice
+    });
+
     useEffect(() => {
         dispatch(getCars());
-    }, [dispatch])
+    }, [dispatch]);
+
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilters({ ...filters, [name]: parseInt(value, 10) });
+    };
+
+    const resetFilter = (filterType) => {
+        setFilters({
+            ...filters,
+            [`${filterType}Min`]: 0,
+            [`${filterType}Max`]: filterType === 'kilometer' ? maxKilometers : maxPrice
+        });
+    };
+
+    const filteredCars = cars.filter(car => {
+        return (
+            car.kilometers >= filters.kilometerMin &&
+            car.kilometers <= filters.kilometerMax &&
+            car.price >= filters.priceMin &&
+            car.price <= filters.priceMax
+        );
+    });
+
     return (
         <>
-            {isLoading && <Loader />}
-            <CarsWrapper>
-                <Container>
-                    <h2>Voitures d'occasion</h2>
-                    <CarFilters>
-                        <Filter>
-                            <label htmlFor="kilometer-range">Kilométrage</label>
-                            <input type="range" id="kilometer-min" name="kilometer-min" min="0" max="300000" value="0" />
-                            <div className='basis'>
-                                <Output id="kilometer-range">0km - 300000km</Output>
-                                <ResetBtn>Réinitialiser</ResetBtn>
-                            </div>
-                        </Filter>
-                        <Filter>
-                            <label htmlFor="price-range">Prix</label>
-                            <input type="range" id="price-min" name="price-min" min="0" max="100000" value="0" />
-                            <div className='basis'>
-                                <Output id="price-range">0€ - 100000€</Output>
-                                <ResetBtn>Réinitialiser</ResetBtn>
-                            </div>
-                        </Filter>
-                    </CarFilters>
-                    <CarGrid>
-                        { cars && cars.map((car, index) => (
-                            <CarItem key={index}>
-                                <img src={car.image_path} alt={car.model} />
-                                <h3>{car.model}</h3>
-                                <p>Kilométrage: <span>{car.kilometers} km</span></p>
-                                <p>Prix: <span>{car.price}€</span></p>
-                                <button class="details-btn">Se renseigner</button>
-
-                            </CarItem>
-                        ))
-                        }
-                        
-                    </CarGrid>
-                </Container>
-            </CarsWrapper>
-
+            {isLoading ? <Loader /> :
+                <CarsWrapper>
+                    <Container>
+                        <h2>Voitures d'occasion</h2>
+                        <CarFilters>
+                            {/* Filtre de kilométrage */}
+                            <Filter>
+                                <label htmlFor="kilometer-range">Kilométrage</label>
+                                <input
+                                    type="range"
+                                    name="kilometerMin"
+                                    min="0"
+                                    max={maxKilometers}
+                                    value={filters.kilometerMin}
+                                    onChange={handleFilterChange}
+                                />
+                                <div className='basis'>
+                                    <Output id="kilometer-range">{`${filters.kilometerMin}km - ${filters.kilometerMax}km`}</Output>
+                                    <ResetBtn onClick={() => resetFilter('kilometer')}>Réinitialiser</ResetBtn>
+                                </div>
+                            </Filter>
+                            {/* Filtre de prix */}
+                            <Filter>
+                                <label htmlFor="price-range">Prix</label>
+                                <input
+                                    type="range"
+                                    name="priceMin"
+                                    min="0"
+                                    max={maxPrice}
+                                    value={filters.priceMin}
+                                    onChange={handleFilterChange}
+                                />
+                                <div className='basis'>
+                                    <Output id="price-range">{`${filters.priceMin}€ - ${filters.priceMax}€`}</Output>
+                                    <ResetBtn onClick={() => resetFilter('price')}>Réinitialiser</ResetBtn>
+                                </div>
+                            </Filter>
+                        </CarFilters>
+                        <CarGrid>
+                            {filteredCars.map((car, index) => (
+                                <CarItem key={index}>
+                                    <img src={car.image_path} alt={car.model} />
+                                    <h3>{car.model}</h3>
+                                    <p>Kilométrage: <span>{car.kilometers} km</span></p>
+                                    <p>Prix: <span>{car.price}€</span></p>
+                                    <button className="details-btn">Se renseigner</button>
+                                </CarItem>
+                            ))}
+                        </CarGrid>
+                    </Container>
+                </CarsWrapper>
+            }
         </>
-
-
-    )
-}
+    );
+};
 
 export default Cars;
-
 // Styled Components
 
 const CarsWrapper = styled.section`
