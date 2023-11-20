@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaEye, FaAccusoft } from 'react-icons/fa';
 import DOMPurify from 'dompurify';
 import { GrStatusGood } from 'react-icons/gr';
-const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete, handleApprouve }) => {
+const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete, handleApprouve, handleArchive }) => {
 
     // Sécuriser la description
     const createMarkup = (htmlContent) => {
@@ -32,9 +32,15 @@ const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete, ha
                                         <img className="image" src={cellValue} alt={row.title} style={{ width: '100px' }} />
                                     ) : column.accessor === 'description' || column.accessor === 'content' ? (
                                         <div dangerouslySetInnerHTML={createMarkup(cellValue)} />
+                                    ) : column.accessor === 'archived' ? (
+                                        cellValue === 1 ? (
+                                            <span>Oui</span>
+                                        ) : (
+                                            <span>Non</span>
+                                        )
                                     ) : (
-                                        cellValue
-                                    )}
+                                            cellValue
+                                        )}
                                 </td>
                             );
                         })}
@@ -42,8 +48,10 @@ const ReusableTable = ({ columns, data, handleView, handleEdit, handleDelete, ha
                             <div className='action_container'>
                                 {handleView && <FaEye className='view' onClick={() => handleView(row.id)} />}
                                 {handleApprouve && <GrStatusGood className='approuve' onClick={() => handleApprouve(row.id)} />}
+                                {handleArchive && <FaAccusoft className='archive' onClick={() => handleArchive(row.id)} />}
                                 {handleEdit && <FaEdit className='edit' onClick={() => handleEdit(row.id)} />}
                                 {handleDelete && <FaTrash className='delete' onClick={() => handleDelete(row.id)} />}
+
                             </div>
                         </td>
                     </tr>

@@ -21,6 +21,8 @@ import AddTestimonials from './admin/testimonials/AddTestimonials';
 import Testimonials from './admin/testimonials/Testimonials';
 import TestimonialDetail from './admin/testimonials/TestimonialDetail';
 import AddOpeningHours from './admin/opening_hours/AddOpeningHours';
+import Messages from './admin/message/Messages';
+import MessageDetail from './admin/message/messageDetail';
 // import Users from './user/User';
 // import UserList from '../components/table/example/UserList';
 function Pages() {
@@ -62,6 +64,10 @@ function Pages() {
 
             { /* Admin Opening Hours */}
             <Route path='/admin/add-opening-hours' element={<AddOpeningHours/>}/>
+
+            { /* Admin Messages */}
+            <Route path='/admin/messages' element={<Messages/>}/>
+            <Route path='/admin/message-detail/:id' element={<MessageDetail/>}/>
 
             {/* test */}
             {/* <Route path='/test' element={<UserList/>}/>         */}

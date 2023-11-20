@@ -20,7 +20,7 @@ const Sidebar = () => {
                 <SidebarLink to="/admin/cars">
                     <FaCar /> Voitures
                 </SidebarLink>
-                <SidebarLink to="/admin/opening_hours">
+                <SidebarLink to="/admin/add-opening-hours">
                     <FaClock /> Horaires
                 </SidebarLink>
                 <SidebarLink to="/admin/users">

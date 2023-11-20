@@ -6,6 +6,8 @@ import carReducer from './features/cars/carSlice';
 import userReducer from './features/users/userSlice';
 import testimonialReducer from './features/testimonials/testimonialSlice';
 import openingHoursReducer from './features/openingHours/openingHoursSlice';
+import messageReducer from './features/messages/messageSlice';
+
 export const store = configureStore({
     reducer: {
         auth: authReducer,
@@ -15,5 +17,6 @@ export const store = configureStore({
         users: userReducer,
         testimonials: testimonialReducer,
         openingHours: openingHoursReducer,
+        messages: messageReducer
     }
 })

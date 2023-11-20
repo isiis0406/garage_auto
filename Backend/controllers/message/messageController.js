@@ -102,16 +102,19 @@ export const postMessage = asyncHandler(async (req, res) => {
         const adminSent_from = process.env.EMAIL_USER;
 
         // Envoi des emails
-        try {
-            await sendEmail(userSubject, userMessage, userSend_to, userSent_from);
-            await sendEmail(adminSubject, adminMessage, adminSend_to, adminSent_from);
-            // Envoie d'une réponse de succès si les emails sont envoyés
-            return res.status(201).json({ message: 'Message créé avec succès et emails envoyés' });
-        } catch (error) {
-            // En cas d'erreur d'envoi de l'email, envoie une réponse d'erreur
-            console.error(error.message);
-            return res.status(500).json({ success: false, message: 'Erreur lors de l\'envoi de l\'email, veuillez réessayer' });
-        }
+       try {
+        // Envoi de l'email à l'utilisateur
+        await sendEmail(userSubject, userMessage, userSend_to, userSent_from);
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Attente de 1 seconde
+        await sendEmail(adminSubject, adminMessage, adminSend_to, adminSent_from);
+
+        // Envoie d'une réponse de succès si les emails sont envoyés
+        return res.status(201).json({ message: 'Message créé avec succès et emails envoyés' });
+    } catch (error) {
+        // En cas d'erreur d'envoi de l'email, envoie une réponse d'erreur
+        console.error(error.message);
+        return res.status(500).json({ success: false, message: 'Erreur lors de l\'envoi de l\'email, veuillez réessayer' });
+    }
     } else {
         return res.status(400).json({ message: "Erreur lors de la création du message" });
     }
