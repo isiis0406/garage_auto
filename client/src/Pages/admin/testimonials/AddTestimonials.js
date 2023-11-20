@@ -18,7 +18,6 @@ const initialState = {
     rating: ''
 }
 function AddTestimonials() {
-    useRedirectLoggedUser('/login');
 
     const isLoggedIn = useSelector(selectIsLoggedInd);
     const dispatch = useDispatch();
