@@ -17,7 +17,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: ["http://localhost:3000", "https://garage.vercel.app"],
+  origin: ["http://localhost:3000", process.env.FRONTEND_URL],
   credentials: true
 }));
 
