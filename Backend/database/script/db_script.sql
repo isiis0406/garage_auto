@@ -39,8 +39,8 @@ CREATE TABLE services(
 CREATE TABLE opening_hours(
    id INT AUTO_INCREMENT,
    day ENUM('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'),
-   open_time TIME,
-   close_time TIME,
+   morning_hours VARCHAR(50),
+   afternoon_hours VARCHAR(50),
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY(id)

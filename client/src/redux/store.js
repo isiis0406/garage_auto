@@ -5,8 +5,7 @@ import serviceReducer from './features/services/serviceSlice';
 import carReducer from './features/cars/carSlice';
 import userReducer from './features/users/userSlice';
 import testimonialReducer from './features/testimonials/testimonialSlice';
-
-
+import openingHoursReducer from './features/openingHours/openingHoursSlice';
 export const store = configureStore({
     reducer: {
         auth: authReducer,
@@ -14,6 +13,7 @@ export const store = configureStore({
         services: serviceReducer,
         cars: carReducer,
         users: userReducer,
-        testimonials: testimonialReducer
+        testimonials: testimonialReducer,
+        openingHours: openingHoursReducer,
     }
 })

@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { getAllOpenHours, getOpenHours, createOpenHours, updateOpenHours, deleteOpenHours } from "../../database/queries/open_hours/openHoursquery.js";
+import { getAllOpenHours, getOpenHours, createOpenHours, updateOpenHours, deleteOpenHours, deleteAllOpenHours } from "../../database/queries/open_hours/openHoursquery.js";
 
 
 
@@ -33,7 +33,16 @@ export const getOneOpenHours = async (req, res) => {
 // Create multiple open hours
 export const createMultipleOpenHours = asyncHandler(async (req, res) => {
     const openHoursList = req.body;
-
+    // Supprimer les horaires d'ouverture existants
+    try {
+        await deleteAllOpenHours();
+    } catch (error) {
+        // Renvoyer une erreur en cas de problème avec la suppression des entrées existantes
+        return res.status(500).json({
+            message: "Une erreur est survenue lors de la suppression des horaires d'ouverture existants.",
+            error: error.message
+        });
+    }
     if(!openHoursList.length) {
         return res.status(400).json({
             message: "Échec de la création des horaires d'ouverture. La liste des horaires d'ouverture est vide."
@@ -41,7 +50,7 @@ export const createMultipleOpenHours = asyncHandler(async (req, res) => {
     };
     for (let openHoursData of openHoursList) {
         // Valider les données
-        if (!openHoursData.day || !openHoursData.open_time || !openHoursData.close_time) {
+        if (!openHoursData.day || !openHoursData.morning_hours || !openHoursData.afternoon_hours) {
             // Renvoyer immédiatement une erreur avec des détails spécifiques
             return res.status(400).json({
                 message: `Échec de la création de l'horaire d'ouverture pour ${openHoursData.day || 'jour inconnu'}. Les champs jour, heure d'ouverture et de fermeture sont requis.`,
@@ -75,7 +84,7 @@ export const updateMultipleOpenHours = async (req, res) => {
 
     for (let openHoursData of openHoursList) {
         // Valider les données
-        if (!openHoursData.day || !openHoursData.open_time || !openHoursData.close_time) {
+        if (!openHoursData.day || !openHoursData.morning_hours || !openHoursData.afternoon_hours) {
             // Renvoyer immédiatement une erreur avec des détails spécifiques
             return res.status(400).json({
                 message: `Échec de la mise à jour de l'horaire d'ouverture pour ${openHoursData.day || 'jour inconnu'}. Les champs jour, heure d'ouverture et de fermeture sont requis.`,

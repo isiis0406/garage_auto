@@ -4,7 +4,7 @@ import { pool} from '../../connexion.js';
 // Get all open hours
 export const getAllOpenHours = async () => {
     try {
-        const [rows] = await pool.query('SELECT * FROM opening_hours');
+        const [rows] = await pool.query('SELECT day, morning_hours, afternoon_hours FROM opening_hours');
         return rows;
     } catch (error) {
         console.error(error);
@@ -24,9 +24,9 @@ export const getOpenHours = async (id) => {
 export const createOpenHours = async (openHours) => {
     try {
         const [rows] = await pool.query(`
-        INSERT INTO opening_hours (day, open_time, close_time)
+        INSERT INTO opening_hours (day, morning_hours, afternoon_hours)
         VALUES (?, ?, ?)
-        `, [openHours.day, openHours.open_time, openHours.close_time]);
+        `, [openHours.day, openHours.morning_hours, openHours.afternoon_hours]);
         ;
         const createdOpenHours = await getOpenHours(rows.insertId);
         return createdOpenHours;
@@ -40,9 +40,9 @@ export const updateOpenHours = async (id, openHours) => {
     try {
         const [rows] = await pool.query(`
         UPDATE opening_hours
-        SET day = ?, open_time = ?, close_time = ?
+        SET day = ?, morning_hours = ?, afternoon_hours = ?
         WHERE id = ?
-        `, [openHours.day, openHours.open_time, openHours.close_time, id]);
+        `, [openHours.day, openHours.morning_hours, openHours.afternoon_hours, id]);
         const updatedOpenHours = await getOpenHours(id);
         return updatedOpenHours;
     } catch (error) {
@@ -54,6 +54,15 @@ export const updateOpenHours = async (id, openHours) => {
 export const deleteOpenHours = async (id) => {
     try {
         const [rows] = await pool.query('DELETE FROM opening_hours WHERE id = ?', [id]);
+        return rows;
+    } catch (error) {
+        console.error(error);
+    }
+}
+// Delete all open hours
+export const deleteAllOpenHours = async () => {
+    try {
+        const [rows] = await pool.query('DELETE FROM opening_hours');
         return rows;
     } catch (error) {
         console.error(error);
