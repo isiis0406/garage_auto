@@ -30,10 +30,10 @@ const Services = () => {
     return (
         <>
             {isLoading && <Loader />}
-            <ServicesWrapper>
+            <ServicesWrapper id="services">
 
                 <h2>Nos Services</h2>
-                <ServiceGrid class="service-grid">
+                <ServiceGrid className="service-grid">
                     {
                         services && services.map((service, index) => (
                             <ServiceItem key={index}>

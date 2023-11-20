@@ -5,7 +5,7 @@ const Hero = () => {
     return (
         <HeroContainer>
             <section id="hero">
-                <div class="hero-text">
+                <div className="hero-text">
                     <h1>Bienvenue au Garage Auto</h1>
                     <p>Votre solution fiable pour tous les besoins automobiles.</p>
                 </div>
@@ -42,6 +42,7 @@ background-blend-mode: darken; /* Mode de fusion pour assombrir l'image */
     .hero-text h1 {
         font-size: 2em;
     }
+    height: 50vh;
 }
 
 

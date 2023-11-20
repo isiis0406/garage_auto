@@ -32,7 +32,7 @@ const Testimonials = () => {
     const { testimonials, isLoading, message } = useSelector(state => state.testimonials);
     console.log(filterApprovedTestimonials(testimonials));
     return (
-        <TestimonialsWrapper>
+        <TestimonialsWrapper id='testimonials'>
             <Container>
                 <h2>Avis de nos clients</h2>
                 <TestimonialsGrid>
@@ -75,7 +75,7 @@ export default Testimonials;
 const TestimonialsWrapper = styled.section`
     background-color: #f7f7f7;
     padding: 2rem;
-    
+    max-width: 100%;
     text-align: center;
 `;
 
@@ -90,6 +90,10 @@ const TestimonialsGrid = styled.div`
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     margin-top: 1rem;
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
 `;
 
 const TestimonialItem = styled.div`

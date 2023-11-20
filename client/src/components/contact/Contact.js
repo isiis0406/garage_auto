@@ -41,7 +41,7 @@ const Contact = () => {
 
 
     return (
-        <ContactWrapper>
+        <ContactWrapper id='contact'>
             <Container>
                 <h2>Nous contacter</h2>
                 <ContactForm onSubmit={handleSendMessage} id="contact-form">
@@ -133,7 +133,7 @@ const TextArea = styled.textarea`
 const SubmitButton = styled.button`
     background-color: #2e6378;
     color: #fff;
-    width: 40%;
+    width: 100%;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 5px;

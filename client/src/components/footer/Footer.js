@@ -65,9 +65,10 @@ const FooterMap = styled.div`
 `;
 
 const GoogleMap = styled.div`
-    iframe {
+    max-width: 100%;  
+  iframe {
       
-        width: 800px;
+        width: 100%;
         height: 300px;
         border: none;
     }

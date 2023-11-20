@@ -12,7 +12,7 @@ const OpeningHours = () => {
     }, [dispatch])
 
     return (
-        <OpeningHoursWrapper>
+        <OpeningHoursWrapper id='opening-hours'>
             <Container>
                 <h2>Horaires d'ouverture</h2>
                 <Hours>
@@ -68,9 +68,9 @@ const Hours = styled.div`
 `;
 
 const HoursTable = styled.table`
-    padding: 3rem;
+    padding: 1rem; // Réduisez le padding pour les petits écrans
     border-collapse: collapse;
-    width: 60%;
+    width: 100%; // Utiliser 100% plutôt qu'une largeur fixe
     color: #000;
 
     th, td {
@@ -85,6 +85,17 @@ const HoursTable = styled.table`
     }
 
     @media screen and (max-width: 768px) {
-        font-size: 0.8rem;
+        font-size: 0.8rem; // Réduction de la taille de police
+    }
+
+    // Pour les très petits écrans, envisagez de passer à un format différent ou d'ajouter un défilement horizontal
+    @media screen and (max-width: 480px) {
+        width: auto; // Permet au tableau de dépasser la largeur de l'écran
+        overflow-x: auto; // Activez le défilement horizontal
+
+        th, td {
+            padding: 0.4rem; // Encore plus petit padding
+        }
     }
 `;
+

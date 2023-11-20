@@ -14,10 +14,21 @@ const Cars = () => {
 
     const [filters, setFilters] = useState({
         kilometerMin: 0,
-        kilometerMax: maxKilometers,
+        kilometerMax: 0,
         priceMin: 0,
-        priceMax: maxPrice
+        priceMax: 0
     });
+    useEffect(() => {
+        if (cars.length > 0) {
+            const maxKilometers = Math.max(...cars.map(car => car.kilometers));
+            const maxPrice = Math.max(...cars.map(car => car.price));
+            setFilters(f => ({
+                ...f,
+                kilometerMax: maxKilometers,
+                priceMax: maxPrice
+            }));
+        }
+    }, [cars]);
 
     useEffect(() => {
         dispatch(getCars());
@@ -35,7 +46,7 @@ const Cars = () => {
             [`${filterType}Max`]: filterType === 'kilometer' ? maxKilometers : maxPrice
         });
     };
-
+    console.log(filters);
     const filteredCars = cars.filter(car => {
         return (
             car.kilometers >= filters.kilometerMin &&
@@ -48,7 +59,7 @@ const Cars = () => {
     return (
         <>
             {isLoading ? <Loader /> :
-                <CarsWrapper>
+                <CarsWrapper id='cars'>
                     <Container>
                         <h2>Voitures d'occasion</h2>
                         <CarFilters>
@@ -92,7 +103,7 @@ const Cars = () => {
                                     <h3>{car.model}</h3>
                                     <p>Kilométrage: <span>{car.kilometers} km</span></p>
                                     <p>Prix: <span>{car.price}€</span></p>
-                                    <button className="details-btn">Se renseigner</button>
+                                    <a href='#contact' className="details-btn">Se renseigner</a>
                                 </CarItem>
                             ))}
                         </CarGrid>
@@ -189,6 +200,7 @@ const CarItem = styled.div`
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.3s ease-in-out;
+    padding: 1rem;
 
     &:hover {
         transform: translateY(-2px);
@@ -222,5 +234,9 @@ const CarItem = styled.div`
         font-size: 0.8rem;
         margin: 1rem;
         transition: background-color 0.3s ease-in-out;
+    }
+    a{
+        text-decoration: none;
+        color: white;
     }
 `;
