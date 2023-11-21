@@ -31,14 +31,13 @@ const authSlice = createSlice({
       state.user.id = user?.id;
       state.user.name = user?.name;
       state.user.email = user?.email;
-      state.user.phoneNumber = user?.role;
+      state.user.role = user?.role;
     },
     RESET_USER(state) {
       state.user = {
         name: "",
         email: "",
-        phoneNumber: "",
-        photo: "",
+        role: "",
       };
     },
   },

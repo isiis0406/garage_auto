@@ -10,6 +10,7 @@ import CarForm from '../../../components/admin/car/carForm.js'
 import { createCar } from '../../../redux/features/cars/carSlice.js'
 import { createUser } from '../../../redux/features/users/userSlice.js'
 import UserForm from '../../../components/admin/user/UserForm.js'
+import useRedirectNoAdminUser from '../../../customHook/userRedirectNoAdminUsers.js'
 const initialState = {
     name: '',
     email: '',
@@ -17,6 +18,7 @@ const initialState = {
 }
 function AddUsers() {
     useRedirectLoggedUser('/login');
+    useRedirectNoAdminUser('/admin');
 
     const isLoggedIn = useSelector(selectIsLoggedInd);
     const dispatch = useDispatch();

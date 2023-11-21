@@ -19,7 +19,7 @@ const useRedirectNoAdminUser = (path) => {
                 if (user && user.role !== "admin") {
                     toast.info("Non authorisé")
                     navigate(path);
-                    return;
+                    return ;
                 }
             }
         };

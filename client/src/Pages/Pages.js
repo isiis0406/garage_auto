@@ -37,7 +37,7 @@ function Pages() {
             <Route path='/forgotpassword' element={<ForgotPassword/>}/>
             <Route path='/resetpassword/:resetToken' element={<ResetPassword/>}/>
             
-             <Route path='/admin' element={<Dashboard/>}/>
+             <Route path='/admin' element={<Services/>}/>
             
 
             { /* Admin Services */}

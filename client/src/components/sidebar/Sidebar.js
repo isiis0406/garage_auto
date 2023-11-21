@@ -4,7 +4,17 @@ import { FaHome, FaCar, FaUsers, FaEnvelope, FaStar, FaClock } from 'react-icons
 import { GrServices } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo1.png';
+import { useSelector } from 'react-redux';
+import useRedirectLoggedOutUser from '../../customHook/useRedirectLoggedOutUser';
+import { ShowOnAdmin } from '../protect/HiddenLink';
 const Sidebar = () => {
+    useRedirectLoggedOutUser('/login');
+    // Récupération du rôle de l'utilisateur
+
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+    const userRole = useSelector(state => state.auth.user.role);
+
     return (
         <SidebarContainer>
             <SidebarHead>
@@ -20,12 +30,16 @@ const Sidebar = () => {
                 <SidebarLink to="/admin/cars">
                     <FaCar /> Voitures
                 </SidebarLink>
-                <SidebarLink to="/admin/add-opening-hours">
-                    <FaClock /> Horaires
-                </SidebarLink>
-                <SidebarLink to="/admin/users">
-                    <FaUsers /> Utilisateurs
-                </SidebarLink>
+                <ShowOnAdmin>
+                    <SidebarLink to="/admin/add-opening-hours">
+                        <FaClock /> Horaires
+                    </SidebarLink>
+
+                    <SidebarLink to="/admin/users">
+                        <FaUsers /> Utilisateurs
+                    </SidebarLink>
+                </ShowOnAdmin>
+
                 <SidebarLink to="/admin/messages">
                     <FaEnvelope /> Messages
                 </SidebarLink>

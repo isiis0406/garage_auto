@@ -43,7 +43,8 @@ const Cars = () => {
         setFilters({
             ...filters,
             [`${filterType}Min`]: 0,
-            [`${filterType}Max`]: filterType === 'kilometer' ? maxKilometers : maxPrice
+            [`${filterType}Max`]: filterType === 'kilometer' ? maxKilometers : maxPrice,
+            
         });
     };
     console.log(filters);
@@ -52,7 +53,7 @@ const Cars = () => {
             car.kilometers >= filters.kilometerMin &&
             car.kilometers <= filters.kilometerMax &&
             car.price >= filters.priceMin &&
-            car.price <= filters.priceMax
+            car.price <= filters.priceMax 
         );
     });
 
