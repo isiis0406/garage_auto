@@ -17,12 +17,13 @@ import CarDetail from './admin/cars/CarDetail';
 import Users from './admin/users/Users';
 import AddUser from './admin/users/AddUser';
 import EditUser from './admin/users/EditUsers';
-import AddTestimonials from './admin/testimonials/AddTestimonials';
+import AddTestimonials from './admin/testimonials/addTestimonial/AddTestimonials';
 import Testimonials from './admin/testimonials/Testimonials';
 import TestimonialDetail from './admin/testimonials/TestimonialDetail';
 import AddOpeningHours from './admin/opening_hours/AddOpeningHours';
 import Messages from './admin/message/Messages';
 import MessageDetail from './admin/message/messageDetail';
+import AdminAddTestimonial from './admin/testimonials/addTestimonial/AdminAddTestimonial';
 // import Users from './user/User';
 // import UserList from '../components/table/example/UserList';
 function Pages() {
@@ -54,6 +55,7 @@ function Pages() {
             { /* Admin Testimonials */}
             <Route path='/admin/testimonials' element={<Testimonials/>}/>
             <Route path='/add-testimonial' element={<AddTestimonials/>}/>
+            <Route path='/admin/add-testimonial' element={<AdminAddTestimonial/>}/>
             <Route path='/admin/testimonial-detail/:id' element={<TestimonialDetail/>}/>
 
           

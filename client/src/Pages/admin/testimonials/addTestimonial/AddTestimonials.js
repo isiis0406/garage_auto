@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import AdminLayout from '../../../components/admin/adminLayout/AdminLayout.js'
-import useRedirectLoggedUser from '../../../customHook/useRedirectLoggedOutUser.js'
+import AdminLayout from '../../../../components/admin/adminLayout/AdminLayout.js'
+import useRedirectLoggedUser from '../../../../customHook/useRedirectLoggedOutUser.js'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { selectIsLoggedInd } from '../../../redux/features/auth/authSlice.js'
+import { selectIsLoggedInd } from '../../../../redux/features/auth/authSlice.js'
 import { useNavigate } from 'react-router-dom'
-import Loader from '../../../components/loader/loader.js'
-import CarForm from '../../../components/admin/car/carForm.js'
-import { createTestimonial } from '../../../redux/features/testimonials/testimonialSlice.js'
-import TestimonialForm from '../../../components/admin/testimonial/TestimonialForm.js'
+import Loader from '../../../../components/loader/loader.js'
+import CarForm from '../../../../components/admin/car/carForm.js'
+import { createTestimonial } from '../../../../redux/features/testimonials/testimonialSlice.js'
+import TestimonialForm from '../../../../components/admin/testimonial/TestimonialForm.js'
 import styled from 'styled-components'
-import { FullHeightContainer } from '../../../components/auth/partials/StyledComponents.js'
+import { FullHeightContainer } from '../../../../components/auth/partials/StyledComponents.js'
+import { toast } from 'react-toastify'
 const initialState = {
     name: '',
     email: '',
@@ -47,6 +48,8 @@ function AddTestimonials() {
             }
             const result = await dispatch(createTestimonial(formData));
             if (!result.error) {
+                toast.success('Votre témoignage a été enregistré, il sera approuvé et publier dans les 24 heures qui suivent😉.');
+
                 navigate('/');
             }
 

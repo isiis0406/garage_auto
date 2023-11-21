@@ -120,6 +120,7 @@ export default testimonialForm;
 
 const Wrapper = styled.div`
     display: flex;
+    width: 70%;
     justify-content: center;
     align-items: center;
     font-size: 0.8rem;

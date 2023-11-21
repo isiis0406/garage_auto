@@ -141,7 +141,6 @@ const testimonialSlice = createSlice({
                 state.isSuccess = true;
                 state.isError = false;
                 state.testimonials.push(action.payload);
-                toast.success('Votre témoignage a été enregistré, il sera approuvé et publier dans les 24 heures qui suivent😉.');
             })
             .addCase(createTestimonial.rejected, (state, action) => {
                 state.isLoading = false;

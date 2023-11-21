@@ -63,6 +63,7 @@ const Testimonials = () => {
             {isLoading && <Loader />}
             {testimonials &&
                 <AdminLayout title="Gestion des avis">
+                    <Action to="/admin/add-testimonial">Ajouter un avis</Action>
                     <ReusableTable 
                     columns={columns} 
                     data={testimonials}
