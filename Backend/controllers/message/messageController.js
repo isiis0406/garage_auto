@@ -69,7 +69,7 @@ export const postMessage = asyncHandler(async (req, res) => {
     const messageCreated = await createMessage(newMessage);
     if (messageCreated) {
         // Construction de l'URL du message
-        const messageUrl = `${process.env.FRONTEND_URL}/messages/${messageCreated.id}`;
+        const messageUrl = `${process.env.FRONTEND_URL}/message-detail/${messageCreated.id}`;
 
         // Préparation des 2 messages d'email du message
         const userMessage = `
@@ -82,7 +82,7 @@ export const postMessage = asyncHandler(async (req, res) => {
         `;
 
         const adminMessage = `
-        <h2>Salut Admin</h2>
+        <h2>Salut,</h2>
         <p>Vous avez reçu un nouveau message de ${name}.</p>
         <p>Voici son contenu :</p>
         <p>${message}</p>

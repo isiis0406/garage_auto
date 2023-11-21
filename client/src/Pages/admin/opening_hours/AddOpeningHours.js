@@ -6,6 +6,7 @@ import { selectIsLoggedInd } from '../../../redux/features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { createOpeningHours, getOpeningHours } from '../../../redux/features/openingHours/openingHoursSlice';
 import AdminLayout from '../../../components/admin/adminLayout/AdminLayout';
+import useRedirectNoAdminUser from '../../../customHook/userRedirectNoAdminUsers';
 const initialHours = [
     { day: "Lundi", morning_hours: "08:45 - 12:00", afternoon_hours: "14:00 - 18:00" },
     { day: "Mardi", morning_hours: "08:45 - 12:00", afternoon_hours: "14:00 - 18:00" },
@@ -18,6 +19,7 @@ const initialHours = [
 
 function AddOpeningHours() {
     useRedirectLoggedOutUser('/login');
+    useRedirectNoAdminUser('/');
 
 
     const isLoggedIn = useSelector(selectIsLoggedInd);
