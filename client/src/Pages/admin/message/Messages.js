@@ -8,6 +8,7 @@ import useRedirectLoggedOutUser from '../../../customHook/useRedirectLoggedOutUs
 import Loader from '../../../components/loader/loader.js';
 import { useNavigate } from 'react-router-dom';
 import { archiveMessage, deleteMessage, getMessages } from '../../../redux/features/messages/messageSlice.js';
+import styled from 'styled-components';
 const Messages = () => {
     useRedirectLoggedOutUser('/login');
     const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const Messages = () => {
     // Récupérer les états globaux depuis le redux
     const { messages, isLoading, isError, message } = useSelector((state) => state.messages);
     
+    // Filter archived messages
+    console.log(messages);
+    const unarchivedMessages = messages.filter(message => message.archived === 0);
     const handleView = async (id) => {
         await navigate(`/admin/message-detail/${id}`)
     };
@@ -56,20 +60,31 @@ const Messages = () => {
     return (
         <>
             {isLoading && <Loader />}
-            {messages &&
-                <AdminLayout title="Méssagerie">
-                    <ReusableTable 
-                    columns={columns} 
-                    data={messages} 
-                    handleView={handleView}
-                    handleArchive={handleArchive}
-                    handleDelete={handleDeleteMessage}
+            { unarchivedMessages && unarchivedMessages.length > 0 ? 
+            (
+                <AdminLayout title="Gestion des messages">
+                    <ReusableTable
+                        columns={columns}
+                        data={unarchivedMessages}
+                        handleView={handleView}
+                        handleArchive={handleArchive}
+                        handleDelete={handleDeleteMessage}
                     />
-                </AdminLayout>}
+                </AdminLayout>
+            
+            ) : <AdminLayout title="Gestion des messages">
+                <CustomText>Aucun nouveau message</CustomText>
+            </AdminLayout>}
+            
         </>
     );
 };
 
 export default Messages;
 
-
+const CustomText = styled.p`
+    color: #2e6378;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+`;

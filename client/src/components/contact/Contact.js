@@ -32,6 +32,7 @@ const Contact = () => {
         }
         const result = await dispatch(createMessage(formData));
         if (!result.error) {
+            setContact(initialState);
             navigate('/');
         }
        

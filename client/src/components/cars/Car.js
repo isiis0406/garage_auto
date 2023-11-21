@@ -12,6 +12,7 @@ function CarDetail() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { selectedCar, isLoading, isError, message } = useSelector((state) => state.cars);
+    
     useEffect(() => {
         dispatch(getCar(id));
     }, [dispatch, id]);
@@ -31,8 +32,6 @@ function CarDetail() {
                     
                     <Description dangerouslySetInnerHTML={{ __html : DOMPurify.sanitize(selectedCar.description) }}></Description>
                 </ServiceInfo>
-                <Link to={`/home/car-detail/${selectedCar.id}`} className="details-btn">Se renseigner</Link>
-
             </ServiceDetailContainer>
          </Layout>
     );
@@ -45,6 +44,11 @@ const ServiceDetailContainer = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    a{
+        color: #1E4A5F;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
 `;
 
 const ServiceImage = styled.img`
