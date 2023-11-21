@@ -24,8 +24,7 @@ import AddOpeningHours from './admin/opening_hours/AddOpeningHours';
 import Messages from './admin/message/Messages';
 import MessageDetail from './admin/message/messageDetail';
 import AdminAddTestimonial from './admin/testimonials/addTestimonial/AdminAddTestimonial';
-// import Users from './user/User';
-// import UserList from '../components/table/example/UserList';
+import Car from '../components/cars/Car';
 function Pages() {
   return (
     <div>
@@ -46,6 +45,12 @@ function Pages() {
             <Route path='/admin/add-service' element={<AddServices/>}/>
             <Route path='/admin/edit-service/:id' element={<EditServices/>}/>
             <Route path='/admin/service-detail/:id' element={<ServiceDetail/>}/>
+            
+            { /* Car Detail */}
+            <Route path='/home/car-detail/:id' element={<Car/>}/>
+
+            { /* Admin Dashboard */}
+            
             {/* Admin Cars */}
             <Route path='/admin/cars' element={<Cars/>}/>
             <Route path='/admin/add-car' element={<AddCars/>}/>

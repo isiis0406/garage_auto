@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { getCars } from '../../redux/features/cars/carSlice';
 import Loader from '../loader/loader';
+import { Link } from 'react-router-dom';
 
 const Cars = () => {
     const dispatch = useDispatch();
@@ -104,7 +105,7 @@ const Cars = () => {
                                     <h3>{car.model}</h3>
                                     <p>Kilométrage: <span>{car.kilometers} km</span></p>
                                     <p>Prix: <span>{car.price}€</span></p>
-                                    <a href='#contact' className="details-btn">Se renseigner</a>
+                                    <Link to={`/home/car-detail/${car.id}`} className="details-btn">Détails</Link>
                                 </CarItem>
                             ))}
                         </CarGrid>
