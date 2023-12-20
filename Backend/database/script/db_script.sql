@@ -62,6 +62,8 @@ CREATE TABLE cars(
   
 );
 /* Testimonials */
+
+
 CREATE TABLE testimonials(
    id INT AUTO_INCREMENT,
    name VARCHAR(55) NOT NULL,
@@ -87,3 +89,5 @@ CREATE TABLE messages(
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY(id)
 );
+
+
