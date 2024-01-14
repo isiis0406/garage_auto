@@ -10,7 +10,9 @@ export const validateEmail = (email) => {
 //Register User
 export const registerUser = async (userData) => {
  try {
-    const response = await axios.post(`${BACKEND_URL}/api/users/register`, userData)
+    const response = await axios.post(`${BACKEND_URL}/api/users/register`, userData, {
+      withCredentials: true
+    })
    if(response.status === 201 || response.status === 200){
       toast.success('Compte créer avec succès');
       return response.data
